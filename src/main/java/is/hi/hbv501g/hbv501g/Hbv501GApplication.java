@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 // Halló, þetta er sólon
 // Hæ, magnea hér
+//Hæhæ, git er lit kv. hafsteinn
 
 @SpringBootApplication
 @RestController
