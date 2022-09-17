@@ -38,10 +38,13 @@ public class DatabaseConnection{
         Connection conn = app.connect();
         Statement stmt = null;
         stmt = conn.createStatement();
+        stmt.executeUpdate("UPDATE workouts set   duration= duration");
         ResultSet r = stmt.executeQuery("SELECT * FROM WORKOUTS");
         while( r.next() ) {
-            System.out.println("Kukur: " + r.getString("Duration"));
+            System.out.println("Title of the workouts: " + r.getString("duration"));
         }
+
+
 
 
 
