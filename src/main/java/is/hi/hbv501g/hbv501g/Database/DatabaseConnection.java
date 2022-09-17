@@ -37,6 +37,7 @@ public class DatabaseConnection{
         DatabaseConnection app = new DatabaseConnection();
         Connection conn = app.connect();
         Statement stmt = null;
+
         stmt = conn.createStatement();
         stmt.executeUpdate("UPDATE workouts set   duration= duration");
         ResultSet r = stmt.executeQuery("SELECT * FROM WORKOUTS");
@@ -44,9 +45,11 @@ public class DatabaseConnection{
             System.out.println("Title of the workouts: " + r.getString("duration"));
         }
 
-
-
-
+    }
+     public void searchBar(String search, Connection conn) throws SQLException {
+        DatabaseConnection app = new DatabaseConnection();
+        Statement stmt = conn.createStatement();
+        stmt.executeQuery("select title from workouts where title like %" + search + "%");
 
     }
 }
