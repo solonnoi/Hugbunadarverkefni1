@@ -1,4 +1,4 @@
-package is.hi.hbv501g.hbv501g;
+package is.hi.hbv501g.hbv501g.Vidmot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
