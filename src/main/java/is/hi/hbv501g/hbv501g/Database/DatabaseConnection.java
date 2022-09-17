@@ -1,9 +1,7 @@
 package is.hi.hbv501g.hbv501g.Database;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *
@@ -11,9 +9,9 @@ import java.sql.SQLException;
  */
 public class DatabaseConnection{
 
-    private final String url = "jdbc:postgresql://ec2-52-212-228-71.eu-west-1.compute.amazonaws.com:5432/dfcs63u99jmpjn";
-    private final String user = "nkkanoyhcelufu";
-    private final String password = "a5376c7daa62cde714010e956cd07b9698a0bdd02071315fbc53aaccc3b4172f";
+     final String url = "jdbc:postgresql://ec2-52-212-228-71.eu-west-1.compute.amazonaws.com:5432/dfcs63u99jmpjn";
+     final String user = "nkkanoyhcelufu";
+     final String password = "a5376c7daa62cde714010e956cd07b9698a0bdd02071315fbc53aaccc3b4172f";
 
     /**
      * Connect to the PostgreSQL database
@@ -35,8 +33,17 @@ public class DatabaseConnection{
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         DatabaseConnection app = new DatabaseConnection();
-        app.connect();
+        Connection conn = app.connect();
+        Statement stmt = null;
+        stmt = conn.createStatement();
+        ResultSet r = stmt.executeQuery("SELECT * FROM WORKOUTS");
+        while( r.next() ) {
+            System.out.println("Kukur: " + r.getString("Duration"));
+        }
+
+
+
     }
 }
