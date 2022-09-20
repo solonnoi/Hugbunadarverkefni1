@@ -44,7 +44,7 @@ public class DatabaseConnection{
           //  System.out.println("Title of the workouts: " + r.getString("duration"));
         //}
 
-        ResultSet search = searchBar("Be", conn);
+        ResultSet search = searchBar("b", conn);
         while(search.next()){
             System.out.println("Niðurstöður leitarinnar er: " + search.getString(1));
         }
@@ -52,6 +52,6 @@ public class DatabaseConnection{
     }
      public static ResultSet searchBar(String search, Connection conn) throws SQLException {
         Statement stmt = conn.createStatement();
-        return stmt.executeQuery("select title from workouts where title like '%" + search + "%'");
+        return stmt.executeQuery("select title from workouts where lower(title) like '%" + search + "%'");
      }
 }
