@@ -37,19 +37,21 @@ public class DatabaseConnection{
         DatabaseConnection app = new DatabaseConnection();
         Connection conn = app.connect();
         Statement stmt = null;
-
         stmt = conn.createStatement();
         stmt.executeUpdate("UPDATE workouts set   duration= duration");
         ResultSet r = stmt.executeQuery("SELECT * FROM WORKOUTS");
-        while( r.next() ) {
-            System.out.println("Title of the workouts: " + r.getString("duration"));
+        //while( r.next() ) {
+          //  System.out.println("Title of the workouts: " + r.getString("duration"));
+        //}
+
+        ResultSet search = searchBar("Be", conn);
+        while(search.next()){
+            System.out.println("Niðurstöður leitarinnar er: " + search.getString(1));
         }
 
     }
-     public void searchBar(String search, Connection conn) throws SQLException {
-        DatabaseConnection app = new DatabaseConnection();
+     public static ResultSet searchBar(String search, Connection conn) throws SQLException {
         Statement stmt = conn.createStatement();
-        stmt.executeQuery("select title from workouts where title like %" + search + "%");
-
-    }
+        return stmt.executeQuery("select title from workouts where title like '%" + search + "%'");
+     }
 }
