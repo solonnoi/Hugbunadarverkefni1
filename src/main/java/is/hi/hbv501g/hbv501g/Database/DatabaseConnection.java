@@ -1,6 +1,7 @@
 package is.hi.hbv501g.hbv501g.Database;
 
 
+
 import java.sql.*;
 
 /**
@@ -29,13 +30,19 @@ public class DatabaseConnection{
 
         return conn;
     }
+    public static Connection getConn(){
+        DatabaseConnection app = new DatabaseConnection();
+        Connection conn = app.connect();
+        return conn;
+    }
+
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        DatabaseConnection app = new DatabaseConnection();
-        Connection conn = app.connect();
+        Connection conn = getConn();
+
         Statement stmt = null;
         stmt = conn.createStatement();
         stmt.executeUpdate("UPDATE workouts set   duration= duration");
@@ -44,14 +51,8 @@ public class DatabaseConnection{
           //  System.out.println("Title of the workouts: " + r.getString("duration"));
         //}
 
-        ResultSet search = searchBar("b", conn);
-        while(search.next()){
-            System.out.println("Niðurstöður leitarinnar er: " + search.getString(1));
-        }
 
     }
-     public static ResultSet searchBar(String search, Connection conn) throws SQLException {
-        Statement stmt = conn.createStatement();
-        return stmt.executeQuery("select title from workouts where lower(title) like '%" + search + "%'");
-     }
+
+
 }

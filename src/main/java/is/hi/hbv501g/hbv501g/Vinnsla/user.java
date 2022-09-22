@@ -17,6 +17,5 @@ public class user {
     public user(String u,String p){
         username = u;
         pw =p;
-
     }
 }
