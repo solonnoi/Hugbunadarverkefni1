@@ -1,4 +1,4 @@
-package is.hi.hbv501g.hbv501g.Vidmot;
+package is.hi.hbv501g.hbv501g.Controllers;
 import is.hi.hbv501g.hbv501g.Database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,6 +13,7 @@ public class WorkoutController {
         Statement stmt = conn.createStatement();
         return stmt.executeQuery("select title from workouts where lower(title) like '%" + search + "%'");
     }
+
   //  ResultSet search = searchBar("b",);
 /*
         while(search.next()){

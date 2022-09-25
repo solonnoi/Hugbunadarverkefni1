@@ -1,4 +1,4 @@
-package is.hi.hbv501g.hbv501g.Vidmot;
+package is.hi.hbv501g.hbv501g;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,4 +24,5 @@ public class Hbv501GApplication {
     public String hello(@RequestParam(value = "yeah", defaultValue = "Buddy") String name) {
         return String.format("Hello %s!", name);
     }
+
 }

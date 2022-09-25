@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library System</title>
+</head>
+<body>
+
+<div th:switch="${workouts}">
+    <h2 th:case="null">No workouts yet!</h2>
+    <div th:case="*">
+        <h2>Workouts</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Duration</th>
+                <th>Description</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="workout : ${workouts}">
+                <td th:text="${book.title}"></td>
+                <td th:text="${book.description}"></td>
+                <td th:text="${book.rating}"></td>
+                <td><a th:href="@{/delete/{id}(id=${book.ID})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/addbook">Add a new workout</a></p>
+</div>
+
+</body>
+</html>
+
