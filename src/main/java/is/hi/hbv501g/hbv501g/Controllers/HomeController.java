@@ -3,12 +3,16 @@ package is.hi.hbv501g.hbv501g.Controllers;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Services.WorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @Controller
@@ -39,5 +43,4 @@ public class HomeController {
         workoutService.delete(workoutToDelete);
         return "redirect:/";
     }
-
 }
