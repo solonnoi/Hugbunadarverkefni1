@@ -1,6 +1,8 @@
 package is.hi.hbv501g.hbv501g.Persistance.Entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="MyWorkouts")

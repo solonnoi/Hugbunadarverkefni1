@@ -1,7 +1,5 @@
 package is.hi.hbv501g.hbv501g.Persistance.Entities;
 
-import is.hi.hbv501g.hbv501g.Services.WorkoutService;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +12,6 @@ public class Workout {
     private long ID;
     private String title;
     private int duration;
-
     private String description;
 
     @OneToMany(mappedBy = "workout",cascade = CascadeType.ALL, orphanRemoval = true)

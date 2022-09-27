@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Library System</title>
+    <title>Workout System</title>
 </head>
 <body>
 
@@ -21,15 +21,15 @@
             </thead>
             <tbody>
             <tr th:each="workout : ${workouts}">
-                <td th:text="${book.title}"></td>
-                <td th:text="${book.description}"></td>
-                <td th:text="${book.rating}"></td>
-                <td><a th:href="@{/delete/{id}(id=${book.ID})}">Delete</a></td>
+                <td th:text="${workout.title}"></td>
+                <td th:text="${workout.duration}"></td>
+                <td th:text="${workout.description}"></td>
+                <td><a th:href="@{/delete/{id}(id=${workout.ID})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/addbook">Add a new workout</a></p>
+    <p><a href="/addWorkout">Add a new workout</a></p>
 </div>
 
 </body>
