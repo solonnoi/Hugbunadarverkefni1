@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 import java.util.List;
 
 @Controller
@@ -33,8 +34,13 @@ public class HomeController {
     }
 
 
-    @RequestMapping(value = "/addWorkout", method = RequestMethod.POST)
-    public String addWorkoutPOST(Workout workout, BindingResult result, Model model){
+    @RequestMapping(value = "/addWorkout",method = RequestMethod.GET)
+    public String addWorkoutForm(Workout workout){
+        return "addWorkout";
+    }
+
+    @RequestMapping(value = "/addWorkout",method = RequestMethod.POST)
+    public String addWorkout(Workout workout, BindingResult result,Model model){
         if(result.hasErrors()){
             return "addWorkout";
         }
@@ -42,7 +48,9 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @RequestMapping(value="/delete/{id}",method = RequestMethod.GET)
+
+    @RequestMapping(value="/delete/{id}",method = RequestMethod.GET
+    )
     public String deleteWorkout(@PathVariable("id") long id,  Model model){
         Workout workoutToDelete = workoutService.findByID(id);
         workoutService.delete(workoutToDelete);
