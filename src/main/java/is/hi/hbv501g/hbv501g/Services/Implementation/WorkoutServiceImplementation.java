@@ -6,7 +6,6 @@ import is.hi.hbv501g.hbv501g.Services.WorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,5 +43,12 @@ public class WorkoutServiceImplementation implements WorkoutService {
     @Override
     public void delete(Workout workout) {
         workoutRepository.delete(workout);
+    }
+    @Override
+    public List<Workout> listAll(String keyword) {
+        if (keyword != null) {
+            return workoutRepository.search(keyword);
+        }
+        return workoutRepository.findAll();
     }
 }

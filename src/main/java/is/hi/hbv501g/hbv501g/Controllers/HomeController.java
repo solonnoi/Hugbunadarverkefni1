@@ -3,6 +3,7 @@ package is.hi.hbv501g.hbv501g.Controllers;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Services.WorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,17 +23,20 @@ public class HomeController {
     }
 
     @RequestMapping("/")
-    public String homePage(Model model){
+    public String homePage(Model model, @Param("keyword") String keyword){
         // Call a method in a service class
-        List<Workout> allWorkouts = workoutService.findAll();
+        List<Workout> allWorkouts = workoutService.listAll(keyword);
         // Add some data to the model
         model.addAttribute("workouts",allWorkouts);
+        model.addAttribute("keyword", keyword);
         return "home";
     }
+
+
     @RequestMapping(value = "/addWorkout", method = RequestMethod.POST)
     public String addWorkoutPOST(Workout workout, BindingResult result, Model model){
         if(result.hasErrors()){
-            return "newWorkout";
+            return "addWorkout";
         }
         workoutService.save(workout);
         return "redirect:/";
