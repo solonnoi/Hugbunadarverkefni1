@@ -14,7 +14,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<MyWorkouts> myWorkouts = new ArrayList<>();
+    List<Workout> myWorkouts = new ArrayList<>();
 
     public User() {
     }

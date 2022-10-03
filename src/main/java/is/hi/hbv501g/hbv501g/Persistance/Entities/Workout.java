@@ -14,8 +14,14 @@ public class Workout {
     private int duration;
     private String description;
 
+    /*
     @OneToMany(mappedBy = "workout",cascade = CascadeType.ALL, orphanRemoval = true)
    private List<MyWorkouts> myWorkouts = new ArrayList<>();
+
+     */
+
+    @OneToMany(mappedBy = "workout",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Exercise> exercises = new ArrayList<>();
 
     public Workout() {
     }
