@@ -24,7 +24,6 @@ public class WorkoutServiceImplementation implements WorkoutService {
         return workoutRepository.findByTitle(title).get(0);
     }
 
-
     @Override
     public List<Workout> findAll() {
         return workoutRepository.findAll();
