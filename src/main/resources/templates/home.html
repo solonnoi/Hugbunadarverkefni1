@@ -31,6 +31,7 @@
                 <th>Title</th>
                 <th>Duration</th>
                 <th>Description</th>
+                <th>Open Workout</th>
                 <th>Delete</th>
             </tr>
             </thead>
@@ -39,6 +40,7 @@
                 <td th:text="${workout.title}"></td>
                 <td th:text="${workout.duration}"></td>
                 <td th:text="${workout.description}"></td>
+                <td><a th:href="@{/workout/{id}(id=${workout.ID})}">Open Workout</a></td>
                 <td><a th:href="@{/delete/{id}(id=${workout.ID})}">Delete</a></td>
             </tr>
             </tbody>

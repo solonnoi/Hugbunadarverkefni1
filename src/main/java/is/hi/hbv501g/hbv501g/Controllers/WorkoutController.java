@@ -56,4 +56,20 @@ public class WorkoutController {
         workoutService.delete(workoutToDelete);
         return "redirect:/";
     }
+
+    @RequestMapping(value = "/workout{id}",method = RequestMethod.GET)
+    public String openWorkoutForm(@PathVariable("id") long id, Workout workout){
+        Workout workoutToOpen = workoutService.findByID(id);
+        return "workout";
+    }
+
+    @RequestMapping(value = "/workout",method = RequestMethod.POST)
+    public String openWorkout(Workout workout, BindingResult result,Model model){
+        if(result.hasErrors()){
+            return "workout";
+        }
+        return "redirect:/";
+    }
+
+
 }
