@@ -57,19 +57,24 @@ public class WorkoutController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/workout{id}",method = RequestMethod.GET)
-    public String openWorkoutForm(@PathVariable("id") long id, Workout workout){
+    @RequestMapping(value = "/workout/{id}",method = RequestMethod.GET)
+    public String openWorkoutForm(@PathVariable("id") long id, Workout workout,Model model){
         Workout workoutToOpen = workoutService.findByID(id);
+        model.addAttribute("workout", workoutToOpen);
+
         return "workout";
     }
 
-    @RequestMapping(value = "/workout",method = RequestMethod.POST)
-    public String openWorkout(Workout workout, BindingResult result,Model model){
-        if(result.hasErrors()){
-            return "workout";
-        }
+    /*
+    @RequestMapping(value = "/workout/{id}",method = RequestMethod.POST)
+    public String openWorkout(@Param("id") long id,Model model){
+
+        model.addAttribute("id", id);
+
         return "redirect:/";
     }
+
+     */
 
 
 }

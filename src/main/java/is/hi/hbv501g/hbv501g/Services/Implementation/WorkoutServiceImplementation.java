@@ -50,4 +50,5 @@ public class WorkoutServiceImplementation implements WorkoutService {
         }
         return workoutRepository.findAll();
     }
+
 }
