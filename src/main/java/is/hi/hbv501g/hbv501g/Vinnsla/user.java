@@ -12,6 +12,7 @@ package is.hi.hbv501g.hbv501g.Vinnsla;
 public class user {
     private String username;
     private String pw;
+
     private boolean dm;
 
     public user(String u,String p){
