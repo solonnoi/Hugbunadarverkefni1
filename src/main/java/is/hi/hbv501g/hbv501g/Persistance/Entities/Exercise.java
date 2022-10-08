@@ -11,9 +11,6 @@ import java.util.List;
 public class Exercise {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
-
     private String title;
     private String bodyPart;
     private String type;
@@ -29,10 +26,6 @@ public class Exercise {
         this.title = title;
         this.bodyPart = bodyPart;
         this.type = type;
-    }
-
-    public long getID() {
-        return ID;
     }
 
     public String getType() {return type; }

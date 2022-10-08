@@ -17,5 +17,4 @@ public interface ExcerciseService {
 
     List<Exercise> findByType(String type);
 
-    Exercise findByID(long ID);
 }

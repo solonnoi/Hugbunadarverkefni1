@@ -36,8 +36,4 @@ public class ExcerciseServiceImplementation implements ExcerciseService {
         return null;
     }
 
-    @Override
-    public Exercise findByID(long ID) {
-        return null;
-    }
 }
