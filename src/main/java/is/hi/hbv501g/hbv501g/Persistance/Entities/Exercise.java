@@ -14,6 +14,8 @@ public class Exercise {
 
     private String title;
     private String bodyPart;
+    private String type;
+
 
     @OneToMany(mappedBy = "exercise",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExerciseCombo> exerciseCombo = new ArrayList<>();
@@ -21,18 +23,17 @@ public class Exercise {
     public Exercise() {
     }
 
-    public Exercise(String title, String bodyPart) {
+    public Exercise(String title, String bodyPart, String type) {
         this.title = title;
         this.bodyPart = bodyPart;
+        this.type = type;
     }
 
     public long getID() {
         return ID;
     }
 
-    public void setID(long ID) {
-        this.ID = ID;
-    }
+    public String getType() {return type; }
 
     public String getTitle() {
         return title;
