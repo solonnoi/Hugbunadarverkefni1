@@ -1,6 +1,8 @@
 package is.hi.hbv501g.hbv501g.Persistance.Entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Exercises")
@@ -11,16 +13,17 @@ public class Exercise {
     private long ID;
 
     private String title;
+    private String bodyPart;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Workout workout;
-
-    public Exercise(String title, Workout workout) {
-        this.title = title;
-        this.workout = workout;
-    }
+    @OneToMany(mappedBy = "exercise",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ExerciseCombo> exerciseCombo = new ArrayList<>();
 
     public Exercise() {
+    }
+
+    public Exercise(String title, String bodyPart) {
+        this.title = title;
+        this.bodyPart = bodyPart;
     }
 
     public long getID() {
@@ -39,11 +42,4 @@ public class Exercise {
         this.title = title;
     }
 
-    public Workout getWorkout() {
-        return workout;
-    }
-
-    public void setWorkout(Workout workout) {
-        this.workout = workout;
-    }
 }
