@@ -64,7 +64,6 @@ public class WorkoutController {
 
         return "workout";
     }
-
     /*
     @RequestMapping(value = "/workout/{id}",method = RequestMethod.POST)
     public String openWorkout(@Param("id") long id,Model model){

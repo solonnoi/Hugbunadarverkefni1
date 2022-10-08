@@ -3,7 +3,7 @@ package is.hi.hbv501g.hbv501g.Persistance.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ExerciseCombos")
+@Table(name = "exercise_combos")
 
 public class ExerciseCombo {
 
@@ -14,10 +14,9 @@ public class ExerciseCombo {
     private int sets;
     private int reps;
     private double kg;
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Exercise exercise;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Workout workout;

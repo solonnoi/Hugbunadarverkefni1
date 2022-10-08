@@ -1,17 +1,21 @@
-package is.hi.hbv501g.hbv501g.Persistance.Repositories;
+package is.hi.hbv501g.hbv501g.Services;
 
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Exercise;
-import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ExerciseRepository extends JpaRepository<Exercise, Long > {
+public interface ExcerciseService {
     Exercise save(Exercise exercise);
+
     void delete(Exercise exercise);
+
     List<Exercise> findAll();
+
     List<Exercise> findByTitle(String title);
+
     List<Exercise> findByBodyPart(String body_part);
+
     List<Exercise> findByType(String type);
+
     Exercise findByID(long ID);
 }

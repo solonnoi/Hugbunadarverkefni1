@@ -15,9 +15,7 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long> {
     List<Workout> findAll();
     List<Workout> findByTitle(String title);
     Workout findByID(long ID);
-
     @Query("SELECT w FROM Workout w WHERE CONCAT(w.title, w.duration, w.description) LIKE %?1%")
     public List<Workout> search(String keyword);
-
 
 }
