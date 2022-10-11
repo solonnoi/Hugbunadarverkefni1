@@ -10,7 +10,7 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long > {
     Exercise save(Exercise exercise);
     void delete(Exercise exercise);
     List<Exercise> findAll();
-    List<Exercise> findByTitle(String title);
+    Exercise findByTitle(String title);
     List<Exercise> findByBodyPart(String body_part);
     List<Exercise> findByType(String type);
 }

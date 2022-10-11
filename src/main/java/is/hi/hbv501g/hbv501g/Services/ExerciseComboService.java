@@ -6,11 +6,10 @@ import java.util.List;
 
 public interface ExerciseComboService {
 
-    ExerciseCombo findByTitle(String title);
+    ExerciseCombo findByExercise(String title);
     List<ExerciseCombo> findAll();
     ExerciseCombo findByID(long ID);
     ExerciseCombo save(ExerciseCombo exerciseCombo);
     void delete(ExerciseCombo exerciseCombo);
-    List<ExerciseCombo> listAll(String keyword);
 
 }

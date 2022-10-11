@@ -4,14 +4,14 @@ import is.hi.hbv501g.hbv501g.Persistance.Entities.Exercise;
 
 import java.util.List;
 
-public interface ExcerciseService {
+public interface ExerciseService {
     Exercise save(Exercise exercise);
 
     void delete(Exercise exercise);
 
     List<Exercise> findAll();
 
-    List<Exercise> findByTitle(String title);
+    Exercise findByTitle(String title);
 
     List<Exercise> findByBodyPart(String body_part);
 

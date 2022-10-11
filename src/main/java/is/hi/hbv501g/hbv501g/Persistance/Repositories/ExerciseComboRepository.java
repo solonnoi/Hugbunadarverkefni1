@@ -10,6 +10,8 @@ public interface ExerciseComboRepository extends JpaRepository<ExerciseCombo, Lo
     ExerciseCombo save(ExerciseCombo exerciseCombo);
     void delete(ExerciseCombo exerciseCombo);
     List<ExerciseCombo> findAll();
+    // viljum vænt bara finna eftir w/o id
     ExerciseCombo findByID(long ID);
+    ExerciseCombo findByExercise(Exercise exercise);
 }
 

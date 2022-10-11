@@ -10,7 +10,6 @@ public class ExerciseCombo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
-
     private int sets;
     private int reps;
     private double kg;
@@ -30,6 +29,12 @@ public class ExerciseCombo {
 
     public ExerciseCombo() {
 
+    }
+    public String getExercise_title() {
+        if (exercise == null){
+            return "";
+        }
+        else return exercise.getTitle();
     }
 
     public long getID() {
