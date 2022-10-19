@@ -2,16 +2,12 @@ package is.hi.hbv501g.hbv501g.Controllers;
 
 import is.hi.hbv501g.hbv501g.Persistance.Entities.User;
 import is.hi.hbv501g.hbv501g.Services.Implementation.UserServiceImplementation;
-import is.hi.hbv501g.hbv501g.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.http.HttpSession;
 
 
 // 17:18
@@ -25,10 +21,10 @@ public class UserController {
         this.userServiceImplementation = userServiceImplementation;
     }
 
-    @RequestMapping(value= "/register", method = RequestMethod.GET)
+    @RequestMapping(value= "/signup", method = RequestMethod.GET)
     public String getRegisterPage(Model model){
         model.addAttribute("registerRequest", new User());
-        return "register_page";
+        return "signup_page";
     }
 
     @RequestMapping(value= "/", method = RequestMethod.GET)
@@ -37,7 +33,7 @@ public class UserController {
         return "login_page";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String register(User user, BindingResult result, Model model){
         // TODO Mögulega laga þetta því þetta er einhver simplified útgáfa
         System.out.println("register request:" + user);
