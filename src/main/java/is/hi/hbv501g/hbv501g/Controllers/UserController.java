@@ -1,31 +1,70 @@
 package is.hi.hbv501g.hbv501g.Controllers;
 
 import is.hi.hbv501g.hbv501g.Persistance.Entities.User;
+import is.hi.hbv501g.hbv501g.Services.Implementation.UserServiceImplementation;
 import is.hi.hbv501g.hbv501g.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 
+
+// 17:18
 @Controller
 public class UserController {
 
-    UserService userService;
+    private final UserServiceImplementation userServiceImplementation;
 
     @Autowired
-    public UserController(UserService userService){
-        this.userService = userService;
+    public UserController(UserServiceImplementation userServiceImplementation){
+        this.userServiceImplementation = userServiceImplementation;
     }
+
+    @RequestMapping(value= "/register", method = RequestMethod.GET)
+    public String getRegisterPage(Model model){
+        model.addAttribute("registerRequest", new User());
+        return "register_page";
+    }
+
+    @RequestMapping(value= "/login", method = RequestMethod.GET)
+    public String getLoginPage(Model model){
+        model.addAttribute("loginRequest", new User());
+        return "login_page";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(@ModelAttribute User user){
+        System.out.println("register request:" + user);
+        User registeredUser = userServiceImplementation.registerUser(user.getLogin(), user.getPassword(), user.getEmail());
+        return registeredUser == null ? "error_page" : "redirect:/login";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(@ModelAttribute User user){
+        System.out.println("login request:" + user);
+        User authenticated = userServiceImplementation.authenticate(user.getLogin(), user.getPassword());
+        if (authenticated != null) {
+            return "home";
+        }
+        else {
+            return "error_page";
+        }
+    }
+
 
     //End points to add
     // signup (GET, POST)
     // login (GET, POST)
     // loggedin (GET)
 
+
+
+    /**
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signupGET(User user){
         return "signup";
@@ -71,4 +110,5 @@ public class UserController {
         }
         return "redirect:/";
     }
+    */
 }

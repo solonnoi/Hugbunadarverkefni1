@@ -7,17 +7,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class UserServiceImplementation implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
+    // Use autowiring through the constructor
     @Autowired
     public UserServiceImplementation(UserRepository userRepository){
         this.userRepository = userRepository;
     }
 
+    public User registerUser(String login, String password, String email){
+        if(login == null && password == null){
+            return null;
+        }
+        else {
+            User user = new User();
+            user.setLogin(login);
+            user.setPassword(password);
+            user.setEmail(email);
+            return userRepository.save(user);
+        }
+    }
+
+
+    // Authentication method
+    public User authenticate(String login, String password){
+        return userRepository.findByLoginAndPassword(login, password).orElse(null);
+    }
 
     @Override
     public User save(User user) {
@@ -34,11 +55,23 @@ public class UserServiceImplementation implements UserService {
         return userRepository.findAll();
     }
 
+
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByLogin(String login) {
+        return userRepository.findByLogin(login);
     }
 
+    @Override
+    public User login(User user) {
+        return null;
+    }
+
+    @Override
+    public Optional<User> findByLoginPassword(String login, String password) {
+        return Optional.empty();
+    }
+
+    /**
     @Override
     public User login(User user) {
         User doesExist = findByUsername(user.getUsername());
@@ -49,4 +82,11 @@ public class UserServiceImplementation implements UserService {
         }
         return null;
     }
+    */
+
+
+
+
 }
+
+

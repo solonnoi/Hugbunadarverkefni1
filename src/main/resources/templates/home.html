@@ -5,12 +5,13 @@
         window.location = "[[@{/}]]";
     }
 </script>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Workout System</title>
 </head>
 <body>
+<h1>Welcome to Workouts <span th:text="${userLogin}"></span></h1>
 
 <form th:action="@{/}">
     Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
