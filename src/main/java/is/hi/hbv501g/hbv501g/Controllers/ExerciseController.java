@@ -27,7 +27,7 @@ public class ExerciseController {
             return "addExerciseCombo";
         }
         exerciseComboService.save(exerciseCombo);
-        return "redirect:/";
+        return "redirect:/workouts";
     }
 
 }

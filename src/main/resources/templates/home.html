@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
     function clearSearch() {
-        window.location = "[[@{/}]]";
+        window.location = "[[@{/workouts}]]";
     }
 </script>
 <html xmlns:th="http://thymeleaf.org" lang="en">
@@ -11,16 +11,15 @@
     <title>Workout System</title>
 </head>
 <body>
-<h1>Welcome to Workouts <span th:text="${userLogin}"></span></h1>
 
-<form th:action="@{/}">
+
+<form th:action="@{/workouts}">
     Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
     &nbsp;
     <input type="submit" value="Search" />
     &nbsp;
     <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
 </form>
-
 
 <div th:switch="${workouts}">
     <h2 th:case="null">No workouts yet!</h2>
@@ -52,6 +51,8 @@
     <p><a href="/login">Log in? </a></p>
     <p><a href="/signup">Dont have an account? </a></p>
 </div>
+
+<h3 th:text= "${userLogin}"></h3>
 
 </body>
 </html>

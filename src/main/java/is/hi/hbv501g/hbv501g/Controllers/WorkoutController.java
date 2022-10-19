@@ -23,7 +23,7 @@ public class WorkoutController {
         this.workoutService = workoutService;
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/workouts")
     public String homePage(Model model, @Param("keyword") String keyword){
         // Call a method in a service class
         List<Workout> allWorkouts = workoutService.listAll(keyword);
@@ -45,7 +45,7 @@ public class WorkoutController {
             return "addWorkout";
         }
         workoutService.save(workout);
-        return "redirect:/";
+        return "home";
     }
 
 
@@ -54,7 +54,7 @@ public class WorkoutController {
     public String deleteWorkout(@PathVariable("id") long id,  Model model){
         Workout workoutToDelete = workoutService.findByID(id);
         workoutService.delete(workoutToDelete);
-        return "redirect:/";
+        return "redirect:/workouts";
     }
 
     @RequestMapping(value = "/workout/{id}",method = RequestMethod.GET)

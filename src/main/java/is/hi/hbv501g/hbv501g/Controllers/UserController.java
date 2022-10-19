@@ -31,30 +31,34 @@ public class UserController {
         return "register_page";
     }
 
-    @RequestMapping(value= "/login", method = RequestMethod.GET)
+    @RequestMapping(value= "/", method = RequestMethod.GET)
     public String getLoginPage(Model model){
         model.addAttribute("loginRequest", new User());
         return "login_page";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute User user){
+    public String register(User user, BindingResult result, Model model){
+        // TODO Mögulega laga þetta því þetta er einhver simplified útgáfa
         System.out.println("register request:" + user);
         User registeredUser = userServiceImplementation.registerUser(user.getLogin(), user.getPassword(), user.getEmail());
-        return registeredUser == null ? "error_page" : "redirect:/login";
+        return registeredUser == null ? "error_page" : "redirect:/";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute User user){
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String login(User user, BindingResult result, Model model){
         System.out.println("login request:" + user);
         User authenticated = userServiceImplementation.authenticate(user.getLogin(), user.getPassword());
         if (authenticated != null) {
-            return "home";
+            // TODO Hérna viljum við skila workouts fyrir user
+            model.addAttribute("userLogin", authenticated.getLogin());
+            return "redirect:/workouts";
         }
         else {
             return "error_page";
         }
     }
+
 
 
     //End points to add

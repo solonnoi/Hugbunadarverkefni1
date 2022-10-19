@@ -26,6 +26,11 @@ public class UserServiceImplementation implements UserService {
             return null;
         }
         else {
+            // TODO láta user fá error message ef þetta username er til
+            if (userRepository.findFirstByLogin(login).isPresent()) {
+                System.out.println("Duplicate login");
+                return null;
+            }
             User user = new User();
             user.setLogin(login);
             user.setPassword(password);
