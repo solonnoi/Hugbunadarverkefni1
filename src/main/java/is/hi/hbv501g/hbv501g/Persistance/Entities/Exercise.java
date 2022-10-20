@@ -26,7 +26,9 @@ public class Exercise {
         this.type = type;
     }
 
-    public String getType() {return type; }
+    public String getType() {
+        return type;
+    }
 
     public String getTitle() {
         return title;

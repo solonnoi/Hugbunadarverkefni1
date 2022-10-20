@@ -3,6 +3,7 @@ package is.hi.hbv501g.hbv501g.Controllers;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.ExerciseCombo;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Services.ExerciseComboService;
+import is.hi.hbv501g.hbv501g.Services.ExerciseService;
 import is.hi.hbv501g.hbv501g.Services.WorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -20,7 +21,7 @@ import java.util.List;
 public class WorkoutController {
     private WorkoutService workoutService;
     private ExerciseComboService exerciseComboService;
-
+    private ExerciseService exerciseService;
     @Autowired
     public WorkoutController(WorkoutService workoutService, ExerciseComboService exerciseComboService){
         this.workoutService = workoutService;
@@ -65,20 +66,17 @@ public class WorkoutController {
     public String openWorkoutForm(@PathVariable("id") long id, Workout workout,Model model){
         Workout workoutToOpen = workoutService.findByID(id);
         List<ExerciseCombo> exerciseCombos = exerciseComboService.findByWorkout(workoutToOpen);
+        //List<ExerciseCombo> exerciseCombosToOpen = exerciseComboService.findAll();
         model.addAttribute("workout", workoutToOpen);
         model.addAttribute("ExerciseCombo", exerciseCombos);
+
         return "workout";
     }
     /*
     @RequestMapping(value = "/workout/{id}",method = RequestMethod.POST)
     public String openWorkout(@Param("id") long id,Model model){
-
         model.addAttribute("id", id);
-
         return "redirect:/";
     }
-
      */
-
-
 }

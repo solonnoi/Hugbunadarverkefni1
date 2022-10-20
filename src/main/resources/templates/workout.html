@@ -16,16 +16,17 @@
         <th>Sets</th>
         <th>Reps</th>
         <th>kg</th>
-        <th>Delete</th>
+        <!-- Bæta við delete-->
     </tr>
     </thead>
+    <!-- Bæta við delete-->
     <tbody>
     <tr th:each="ExerciseCombo : ${exercise_combos}">
         <td th:text="${exercise_combos.exercise_title}"></td>
         <td th:text="${exercise_combos.sets}"></td>
         <td th:text="${exercise_combos.reps}"></td>
         <td th:text="${exercise_combos.kg}"></td>
-        <td><a th:href="@{/delete/{id}(id=${workout.ID})}">Delete</a></td>
+        <!-- Bæta við delete-->
     </tr>
     </tbody>
 </table>
