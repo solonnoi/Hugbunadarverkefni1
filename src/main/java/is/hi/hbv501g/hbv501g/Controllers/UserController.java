@@ -38,15 +38,15 @@ public class UserController {
         // TODO Mögulega laga þetta því þetta er einhver simplified útgáfa
         System.out.println("register request:" + user);
         User registeredUser = userServiceImplementation.registerUser(user.getLogin(), user.getPassword(), user.getEmail());
-        return registeredUser == null ? "error_page" : "redirect:/workouts";
+        return registeredUser == null ? "error_page1" : "redirect:/workouts";
     }
 
+    // Viljum við skila sitthvorri error page ef username eða pw er vitlaust?
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String login(User user, BindingResult result, Model model){
         System.out.println("login request:" + user);
         User authenticated = userServiceImplementation.authenticate(user.getLogin(), user.getPassword());
         if (authenticated != null) {
-            // TODO Hérna viljum við skila workouts fyrir user
             model.addAttribute("userLogin", authenticated.getLogin());
             return "redirect:/workouts";
         }
