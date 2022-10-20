@@ -38,7 +38,7 @@ public class UserController {
         // TODO Mögulega laga þetta því þetta er einhver simplified útgáfa
         System.out.println("register request:" + user);
         User registeredUser = userServiceImplementation.registerUser(user.getLogin(), user.getPassword(), user.getEmail());
-        return registeredUser == null ? "error_page" : "redirect:/";
+        return registeredUser == null ? "error_page" : "redirect:/workouts";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
