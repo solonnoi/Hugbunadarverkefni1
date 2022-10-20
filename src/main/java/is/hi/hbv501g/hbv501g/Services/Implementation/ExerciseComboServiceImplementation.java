@@ -1,6 +1,7 @@
 package is.hi.hbv501g.hbv501g.Services.Implementation;
 
 import is.hi.hbv501g.hbv501g.Persistance.Entities.ExerciseCombo;
+import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Persistance.Repositories.ExerciseComboRepository;
 import is.hi.hbv501g.hbv501g.Persistance.Repositories.ExerciseRepository;
 import is.hi.hbv501g.hbv501g.Persistance.Repositories.WorkoutRepository;
@@ -16,6 +17,8 @@ public class ExerciseComboServiceImplementation implements ExerciseComboService 
     private ExerciseComboRepository exerciseComboRepository;
     private ExerciseRepository exerciseRepository;
 
+    private WorkoutRepository workoutRepository;
+
     @Autowired
     public ExerciseComboServiceImplementation(ExerciseComboRepository exerciseComboRepository) {
         this.exerciseComboRepository = exerciseComboRepository;
@@ -25,7 +28,6 @@ public class ExerciseComboServiceImplementation implements ExerciseComboService 
     public ExerciseCombo findByExercise(String title) {
         return exerciseComboRepository.findByExercise(exerciseRepository.findByTitle(title));
     }
-
 
     @Override
     public List<ExerciseCombo> findAll() {
@@ -37,13 +39,21 @@ public class ExerciseComboServiceImplementation implements ExerciseComboService 
         return exerciseComboRepository.findByID(ID);
     }
 
+    // TODO: 17.10.2022 Bæta við ordering gæa
     @Override
-    public ExerciseCombo save(ExerciseCombo exerciseCombo) {
-        return exerciseComboRepository.save(exerciseCombo);
+    public ExerciseCombo save(ExerciseCombo exerciseCombo/*, long ID*/) {
+        // Er þetta rétt hugsun?
+       //exerciseCombo.setWorkout(workoutRepository.findByID(ID));
+       return exerciseComboRepository.save(exerciseCombo);
     }
 
     @Override
     public void delete(ExerciseCombo exerciseCombo) {
         exerciseComboRepository.delete(exerciseCombo);
+    }
+
+    @Override
+    public List<ExerciseCombo> findByWorkout(Workout workout) {
+        return exerciseComboRepository.findByWorkout(workout);
     }
 }

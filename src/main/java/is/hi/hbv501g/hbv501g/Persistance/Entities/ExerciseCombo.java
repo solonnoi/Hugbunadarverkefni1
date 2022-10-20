@@ -4,35 +4,36 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "exercise_combos")
-
 public class ExerciseCombo {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
     private int sets;
     private int reps;
     private double kg;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Exercise exercise;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Workout workout;
 
-    public ExerciseCombo(int sets, int reps, double kg, Exercise exercise) {
+    public Workout getWorkout() {
+        return workout;
+    }
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
+    }
+    public ExerciseCombo(int sets, int reps, double kg/*, Exercise exercise*/) {
         this.sets = sets;
         this.reps = reps;
         this.kg = kg;
-        this.exercise = exercise;
+       // this.exercise = exercise;
     }
 
     public ExerciseCombo() {
-
     }
     public String getExercise_title() {
         if (exercise == null){
-            return "";
+            return "asdf";
         }
         else return exercise.getTitle();
     }

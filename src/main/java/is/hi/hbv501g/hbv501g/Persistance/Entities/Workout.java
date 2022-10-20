@@ -14,17 +14,19 @@ public class Workout {
     private int duration;
     private String description;
 
-    /*
-    @OneToMany(mappedBy = "workout",cascade = CascadeType.ALL, orphanRemoval = true)
-   private List<MyWorkouts> myWorkouts = new ArrayList<>();
-
-     */
-
     @OneToMany(mappedBy = "workout",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExerciseCombo> exerciseCombo = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
+    public List<ExerciseCombo> getExerciseCombo() {
+        return exerciseCombo;
+    }
+
+    public void setExerciseCombo(List<ExerciseCombo> exerciseCombo) {
+        this.exerciseCombo = exerciseCombo;
+    }
 
     public Workout() {
     }

@@ -9,7 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
+// Allt sem er ready og er að gera einhverja logík
+// Lýsing á entities,
 // 17:18
 @Controller
 public class UserController {

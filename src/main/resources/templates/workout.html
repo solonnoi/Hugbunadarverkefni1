@@ -20,17 +20,18 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="workout : ${workouts}">
-        <td th:text="${workout.title}"></td>
-        <td th:text="${workout.duration}"></td>
-        <td th:text="${workout.description}"></td>
-        <td><a th:href="@{/workout/{id}(id=${workout.ID})}">Open Workout</a></td>
+    <tr th:each="ExerciseCombo : ${exercise_combos}">
+        <td th:text="${exercise_combos.exercise_title}"></td>
+        <td th:text="${exercise_combos.sets}"></td>
+        <td th:text="${exercise_combos.reps}"></td>
+        <td th:text="${exercise_combos.kg}"></td>
         <td><a th:href="@{/delete/{id}(id=${workout.ID})}">Delete</a></td>
     </tr>
     </tbody>
 </table>
+<p><a href="/addExerciseCombo">Add a new Exercise</a></p>
 
-<p><a href="/addExerciseCombo">Add a exercise</a></p>
+
 
 </body>
 </html>

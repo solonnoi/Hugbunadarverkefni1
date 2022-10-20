@@ -13,15 +13,10 @@ public class User {
     private long ID;
     private String login;
     private String password;
-
+    // Breyta yfir í protected?
     private String email;
-
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Workout> myWorkouts = new ArrayList<>();
-
-
-
     public User() {
     }
 
