@@ -41,7 +41,7 @@ public class ExerciseComboServiceImplementation implements ExerciseComboService 
 
     // TODO: 17.10.2022 Bæta við ordering gæa
     @Override
-    public ExerciseCombo save(ExerciseCombo exerciseCombo/*, long ID*/) {
+    public ExerciseCombo save(ExerciseCombo exerciseCombo) {
         // Er þetta rétt hugsun?
        //exerciseCombo.setWorkout(workoutRepository.findByID(ID));
        return exerciseComboRepository.save(exerciseCombo);

@@ -3,6 +3,7 @@ package is.hi.hbv501g.hbv501g.Controllers;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.ExerciseCombo;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Services.ExerciseComboService;
+import is.hi.hbv501g.hbv501g.Services.ExerciseService;
 import is.hi.hbv501g.hbv501g.Services.WorkoutService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.persistence.PostLoad;
 
 @Controller
 public class ExerciseController {
@@ -31,14 +34,17 @@ public class ExerciseController {
 
 
     @RequestMapping(value = "workout/addExercise/{id}", method = RequestMethod.GET)
-    public String addExerciseComboForm(ExerciseCombo exerciseCombo,@PathVariable("id") long id){
+    public String addExerciseComboForm(ExerciseCombo exerciseCombo,@PathVariable("id") long id,Model model){
+        Workout workoutToOpen = workoutService.findByID(id);
+        model.addAttribute("workout", workoutToOpen);
 
         return "addExerciseCombo";
     }
     @RequestMapping(value = "/workout/addExercise/{id}", method = RequestMethod.POST)
-    public String addExerciseCombo(ExerciseCombo exerciseCombo,@PathVariable("id") long id, BindingResult result, Model model){
+    public String addExerciseCombo(ExerciseCombo exerciseCombo,@PathVariable("id") long workout_id, String exercise_title, int reps, int sets, double kg){
+        exerciseComboService.save(exerciseCombo);
 
-        return "workout";
+        return "redirect:/workout/{id}";
     }
 
 }

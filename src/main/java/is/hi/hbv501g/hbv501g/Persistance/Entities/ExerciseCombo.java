@@ -22,7 +22,9 @@ public class ExerciseCombo {
     public void setWorkout(Workout workout) {
         this.workout = workout;
     }
-    public ExerciseCombo(int sets, int reps, double kg/*, Exercise exercise*/) {
+    public ExerciseCombo(int sets, int reps, double kg, Exercise exercise, Workout workout) {
+        this.exercise = exercise;
+        this.workout = workout;
         this.sets = sets;
         this.reps = reps;
         this.kg = kg;

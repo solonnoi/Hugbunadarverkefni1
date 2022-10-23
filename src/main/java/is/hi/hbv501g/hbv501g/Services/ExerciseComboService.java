@@ -10,7 +10,7 @@ public interface ExerciseComboService {
     ExerciseCombo findByExercise(String title);
     List<ExerciseCombo> findAll();
     ExerciseCombo findByID(long ID);
-    ExerciseCombo save(ExerciseCombo exerciseCombo/*, long ID*/);
+    ExerciseCombo save(ExerciseCombo exerciseCombo);
     void delete(ExerciseCombo exerciseCombo);
     List<ExerciseCombo> findByWorkout(Workout workout);
 
