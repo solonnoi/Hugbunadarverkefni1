@@ -21,11 +21,11 @@
     </thead>
     <!-- Bæta við delete-->
     <tbody>
-    <tr th:each="exercise_combos : ${ExerciseCombo}">
-        <td th:text="${exercise_combos.exercise_title}"></td>
-        <td th:text="${exercise_combos.sets}"></td>
-        <td th:text="${exercise_combos.reps}"></td>
-        <td th:text="${exercise_combos.kg}"></td>
+    <tr th:each="exercise_combo : ${ExerciseCombos}">
+        <td th:text="${exercise_combo.exercise_title}"></td>
+        <td th:text="${exercise_combo.sets}"></td>
+        <td th:text="${exercise_combo.reps}"></td>
+        <td th:text="${exercise_combo.kg}"></td>
         <!-- Bæta við delete-->
     </tr>
     </tbody>

@@ -39,11 +39,9 @@ public class ExerciseCombo {
         }
         else return exercise.getTitle();
     }
-
     public long getID() {
         return ID;
     }
-
     public int getSets() {
         return sets;
     }
