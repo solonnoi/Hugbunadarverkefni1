@@ -63,7 +63,7 @@ public class WorkoutController {
     }
 
     @RequestMapping(value = "/workout/{id}",method = RequestMethod.GET)
-    public String openWorkoutForm(@PathVariable("id") long id, Workout workout,Model model){
+    public String openWorkoutForm(@PathVariable("id") long id,Model model){
         Workout workoutToOpen = workoutService.findByID(id);
         List<ExerciseCombo> exerciseCombos = exerciseComboService.findByWorkout(workoutToOpen);
         //List<ExerciseCombo> exerciseCombosToOpen = exerciseComboService.findAll();

@@ -1,6 +1,7 @@
 package is.hi.hbv501g.hbv501g.Controllers;
 
 import is.hi.hbv501g.hbv501g.Persistance.Entities.ExerciseCombo;
+import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Services.ExerciseComboService;
 import is.hi.hbv501g.hbv501g.Services.WorkoutService;
 import org.springframework.stereotype.Controller;
@@ -29,23 +30,14 @@ public class ExerciseController {
 
 
 
-    @RequestMapping(value = "addExerciseCombo" ,method = RequestMethod.GET)
-    public String addExerciseComboForm(ExerciseCombo exerciseCombo/*,@PathVariable("id") long id*/){
+    @RequestMapping(value = "workout/addExercise/{id}", method = RequestMethod.GET)
+    public String addExerciseComboForm(ExerciseCombo exerciseCombo,@PathVariable("id") long id){
+
         return "addExerciseCombo";
     }
-
-    @RequestMapping(value = "/workout/{id}/addExercise",method = RequestMethod.POST)
+    @RequestMapping(value = "/workout/addExercise/{id}", method = RequestMethod.POST)
     public String addExerciseCombo(ExerciseCombo exerciseCombo,@PathVariable("id") long id, BindingResult result, Model model){
-        if(result.hasErrors()) {
-            return "redirect:/addExerciseCombo";
-        }
-        // Uses to url to store what workout the exerciseCombo shall be added to
-        // Þurfum við eitthvað meira hérna ?
-        // Bæta við findById tékkara
-         if(workoutService.findByID(id) == null) {
-            return "redirect:/addExercise";
-        }
-        exerciseComboService.save(exerciseCombo/*, id*/);
+
         return "workout";
     }
 

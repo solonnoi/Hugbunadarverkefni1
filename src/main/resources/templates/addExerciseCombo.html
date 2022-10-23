@@ -9,8 +9,15 @@
 <body>
 <form action="#" th:action="@{/workout/{id}/addExercise}" th:object="${exerciseCombo}" method="post">
 
+
+
   <label for="exercise_title">Title</label>
-  <input type="text" th:field="*{exercise_title}" id="exercise_title" placeholder="Title">
+  <select name="exercise_title" id="exercise_title">
+    <option value="Bicep Curls" selected>Bicep Curls</option>
+    <option value="Push ups">Push ups</option>
+    <option value="Crunches" >Crunches</option>
+  </select>
+
   <span th:if="${#fields.hasErrors('exercise_title')}" th:errors="*{exercise_title}"></span>
 
   <label for="sets">Sets</label>

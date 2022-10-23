@@ -21,7 +21,7 @@
     </thead>
     <!-- Bæta við delete-->
     <tbody>
-    <tr th:each="ExerciseCombo : ${exercise_combos}">
+    <tr th:each="exercise_combos : ${ExerciseCombo}">
         <td th:text="${exercise_combos.exercise_title}"></td>
         <td th:text="${exercise_combos.sets}"></td>
         <td th:text="${exercise_combos.reps}"></td>
@@ -30,7 +30,7 @@
     </tr>
     </tbody>
 </table>
-<p><a href="/addExerciseCombo">Add a new Exercise</a></p>
+<p><a th:href="@{/workout/addExercise/{id}(id=${workout.ID})}">Add Exercise</a></p>
 
 
 

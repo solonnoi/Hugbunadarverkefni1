@@ -18,5 +18,6 @@ public interface ExerciseComboRepository extends JpaRepository<ExerciseCombo, Lo
     //  listi af Excombos
     ExerciseCombo findByExercise(Exercise exercise);
     List<ExerciseCombo> findByWorkout(Workout workout);
+    List<ExerciseCombo> findExerciseComboByWorkout(Workout workout);
 }
 
