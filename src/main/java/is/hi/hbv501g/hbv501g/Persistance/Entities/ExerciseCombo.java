@@ -28,7 +28,6 @@ public class ExerciseCombo {
         this.sets = sets;
         this.reps = reps;
         this.kg = kg;
-       // this.exercise = exercise;
     }
 
     public ExerciseCombo() {
@@ -73,4 +72,8 @@ public class ExerciseCombo {
     public void setExercise(Exercise exercise) {
         this.exercise = exercise;
     }
+
+
+
+
 }

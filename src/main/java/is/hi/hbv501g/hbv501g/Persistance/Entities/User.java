@@ -16,54 +16,43 @@ public class User {
     // Breyta yfir í protected?
     private String email;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Workout> myWorkouts = new ArrayList<>();
+     List<Workout> myWorkouts = new ArrayList<>();
     public User() {
     }
-
     public User(String login, String password) {
         this.login = login;
         this.password = password;
     }
-
     public long getID() {
         return ID;
     }
-
     public void setID(long ID) {
         this.ID = ID;
     }
-
     public String getLogin() {
         return login;
     }
-
     public void setLogin(String login) {
         this.login = login;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public List<Workout> getMyWorkouts() {
         return myWorkouts;
     }
-
     public void setMyWorkouts(List<Workout> myWorkouts) {
         this.myWorkouts = myWorkouts;
     }
-
     public String getEmail() {
         return email;
     }
     public void setEmail(String email) {
         this.email = email;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,7 +65,6 @@ public class User {
     public int hashCode() {
         return Objects.hash(ID, login, password, email);
     }
-
     // Password is sensitive information so it is skipped
     @Override
     public String toString() {

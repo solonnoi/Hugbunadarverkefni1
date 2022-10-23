@@ -20,6 +20,8 @@ public class ExerciseController {
     private ExerciseComboService exerciseComboService;
     private WorkoutService workoutService;
 
+    private ExerciseService exerciseService;
+
     public ExerciseController(ExerciseComboService exerciseComboService, WorkoutService workoutService) {
         this.exerciseComboService = exerciseComboService;
         this.workoutService = workoutService;
@@ -42,8 +44,9 @@ public class ExerciseController {
     }
     @RequestMapping(value = "/workout/addExercise/{id}", method = RequestMethod.POST)
     public String addExerciseCombo(ExerciseCombo exerciseCombo,@PathVariable("id") long workout_id, String exercise_title, int reps, int sets, double kg){
+        // exerciseCombo.setExercise(exerciseService.findByTitle(exercise_title));
+        // exerciseCombo.setWorkout(workoutService.findByID(workout_id));
         exerciseComboService.save(exerciseCombo);
-
         return "redirect:/workout/{id}";
     }
 
