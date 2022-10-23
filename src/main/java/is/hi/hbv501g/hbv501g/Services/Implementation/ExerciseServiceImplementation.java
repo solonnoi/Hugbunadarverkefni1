@@ -48,4 +48,9 @@ public class ExerciseServiceImplementation implements ExerciseService {
         return exerciseRepository.findByType(type);
     }
 
+    @Override
+    public List<Exercise> listAll() {
+        return null;
+    }
+
 }

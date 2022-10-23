@@ -11,6 +11,11 @@ public class ExerciseCombo {
     private int sets;
     private int reps;
     private double kg;
+
+    private String title;
+
+    private long jaan;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Exercise exercise;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -22,9 +27,9 @@ public class ExerciseCombo {
     public void setWorkout(Workout workout) {
         this.workout = workout;
     }
-    public ExerciseCombo(int sets, int reps, double kg, Exercise exercise, Workout workout) {
-        this.exercise = exercise;
-        this.workout = workout;
+    public ExerciseCombo(int sets, int reps, double kg, String title, long jaan) {
+        this.title = title;
+        this.jaan = jaan;
         this.sets = sets;
         this.reps = reps;
         this.kg = kg;
@@ -74,5 +79,22 @@ public class ExerciseCombo {
 
     public void setExercise(Exercise exercise) {
         this.exercise = exercise;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public long getTest() {
+        return jaan;
+    }
+
+    public void setTest(long test) {
+        this.jaan = test;
     }
 }
