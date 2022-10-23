@@ -1,6 +1,7 @@
 package is.hi.hbv501g.hbv501g.Controllers;
 
 import is.hi.hbv501g.hbv501g.Persistance.Entities.ExerciseCombo;
+import is.hi.hbv501g.hbv501g.Persistance.Entities.User;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Services.ExerciseComboService;
 import is.hi.hbv501g.hbv501g.Services.ExerciseService;
@@ -37,8 +38,6 @@ public class WorkoutController {
         model.addAttribute("keyword", keyword);
         return "home";
     }
-
-
     @RequestMapping(value = "/addWorkout",method = RequestMethod.GET)
     public String addWorkoutForm(Workout workout){
         return "addWorkout";
@@ -52,8 +51,6 @@ public class WorkoutController {
         workoutService.save(workout);
         return "redirect:/workouts";
     }
-
-
     @RequestMapping(value="/delete/{id}",method = RequestMethod.GET
     )
     public String deleteWorkout(@PathVariable("id") long id,  Model model){
@@ -61,14 +58,13 @@ public class WorkoutController {
         workoutService.delete(workoutToDelete);
         return "redirect:/workouts";
     }
-
     @RequestMapping(value = "/workout/{id}",method = RequestMethod.GET)
     public String openWorkoutForm(@PathVariable("id") long id,Model model){
         Workout workoutToOpen = workoutService.findByID(id);
         List<ExerciseCombo> exerciseCombos = exerciseComboService.findByWorkout(workoutToOpen);
         //List<ExerciseCombo> exerciseCombosToOpen = exerciseComboService.findAll();
         model.addAttribute("workout", workoutToOpen);
-        model.addAttribute("ExerciseCombo", exerciseCombos);
+        model.addAttribute("ExerciseCombos", exerciseCombos);
 
         return "workout";
     }

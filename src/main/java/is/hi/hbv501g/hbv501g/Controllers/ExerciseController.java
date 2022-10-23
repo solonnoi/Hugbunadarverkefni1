@@ -1,6 +1,5 @@
 package is.hi.hbv501g.hbv501g.Controllers;
 
-import is.hi.hbv501g.hbv501g.Persistance.Entities.Exercise;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.ExerciseCombo;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Services.ExerciseComboService;
@@ -21,9 +20,7 @@ public class ExerciseController {
     private ExerciseComboService exerciseComboService;
     private WorkoutService workoutService;
 
-    //private Workout workout;
-
-    //private Exercise exercise;
+    private ExerciseService exerciseService;
 
     public ExerciseController(ExerciseComboService exerciseComboService, WorkoutService workoutService) {
         this.exerciseComboService = exerciseComboService;
@@ -46,11 +43,10 @@ public class ExerciseController {
         return "addExerciseCombo";
     }
     @RequestMapping(value = "/workout/addExercise/{id}", method = RequestMethod.POST)
-    public String addExerciseCombo(ExerciseCombo exerciseCombo,@PathVariable("id") long workout_id, String exercise_title, int reps, int sets, double kg, String title, long test){
-        //exerciseCombo.setTitle(exercise.getTitle());
-        //exerciseCombo.setTest(workout.getID());
+    public String addExerciseCombo(ExerciseCombo exerciseCombo,@PathVariable("id") long workout_id, String exercise_title, int reps, int sets, double kg){
+        // exerciseCombo.setExercise(exerciseService.findByTitle(exercise_title));
+        // exerciseCombo.setWorkout(workoutService.findByID(workout_id));
         exerciseComboService.save(exerciseCombo);
-
         return "redirect:/workout/{id}";
     }
 
