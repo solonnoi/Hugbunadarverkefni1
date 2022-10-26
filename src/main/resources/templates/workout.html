@@ -6,8 +6,11 @@
 </head>
 <body>
 <h2 th:text="${workout.title}"></h2>
+<h2 th:text="${workout.ID}"></h2>
 <h3 >Duration: </h3>
 <h3 th:text= "${workout.duration}"></h3>
+
+
 
 <table>
     <thead>
@@ -16,21 +19,20 @@
         <th>Sets</th>
         <th>Reps</th>
         <th>kg</th>
-        <!-- Bæta við delete-->
+        <th>Remove</th>
     </tr>
     </thead>
-    <!-- Bæta við delete-->
     <tbody>
     <tr th:each="exercise_combo : ${ExerciseCombos}">
         <td th:text="${exercise_combo.exercise_title}"></td>
         <td th:text="${exercise_combo.sets}"></td>
         <td th:text="${exercise_combo.reps}"></td>
         <td th:text="${exercise_combo.kg}"></td>
-        <!-- Bæta við delete-->
+        <td><a th:href="@{/deleteExercise/{workout_id}/{id}(id=${exercise_combo.ID},workout_id=${workout.ID})}">Remove</a></td>
     </tr>
     </tbody>
 </table>
-<p><a th:href="@{/workout/addExercise/{id}(id=${workout.ID})}">Add Exercise</a></p>
+<p><a th:href="@{/workout/{id}/addExercise(id=${workout.ID})}">Add Exercise</a></p>
 
 
 

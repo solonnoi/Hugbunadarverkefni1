@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// Inniheldur allt sem við viljum setja inn
+
 @Entity
 @Table(name = "exercises")
 public class Exercise {

@@ -4,6 +4,15 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/******************************************************************************
+ *  Nafn    : Hópur 7
+ *  T-póstur: sns25@hi.is, kjg18@hi.is, hrj53@hi.is, mmo15@hi.is
+ *
+ *  Lýsing  : Þetta er klasi sem býr til Entity-ið workout,
+ *  inntak, útreikningar, úttak
+ *
+ *
+ *****************************************************************************/
 @Entity
 @Table(name= "workouts")
 public class Workout {
