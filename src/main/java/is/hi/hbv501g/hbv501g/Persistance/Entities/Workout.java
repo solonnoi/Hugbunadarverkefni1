@@ -8,9 +8,11 @@ import java.util.List;
  *  Nafn    : Hópur 7
  *  T-póstur: sns25@hi.is, kjg18@hi.is, hrj53@hi.is, mmo15@hi.is
  *
- *  Lýsing  : Þetta er klasi sem býr til Entity-ið workout,
- *  inntak, útreikningar, úttak
- *
+ *  Lýsing  : Þetta er klasi sem býr til Entity-ið workouts,
+ *  Forritið autogenerate-ar ID fyrir hvert og eitt workout,
+ *  það eru nokkrar
+ *  Það er OneToMany tenging frá workouts yfir í ExerciseCombos Entity-ið og
+ *  ManyToOne tenging við user.
  *
  *****************************************************************************/
 @Entity
@@ -26,28 +28,22 @@ public class Workout {
     private List<ExerciseCombo> exerciseCombo = new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
     public List<ExerciseCombo> getExerciseCombo() {
         return exerciseCombo;
     }
-
     public void setExerciseCombo(List<ExerciseCombo> exerciseCombo) {
         this.exerciseCombo = exerciseCombo;
     }
-
     public Workout() {
     }
-
     public Workout(String title, int duration, String description) {
         this.title = title;
         this.duration = duration;
         this.description = description;
     }
-
     public long getID() {
         return ID;
     }
-
     public void setID(long ID) {
         this.ID = ID;
     }
@@ -55,15 +51,12 @@ public class Workout {
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public int getDuration() {
         return duration;
     }
-
     public void setDuration(int duration) {
         this.duration = duration;
     }
@@ -71,7 +64,6 @@ public class Workout {
         this.description = description;
     }
     public String getDescription() {return description;}
-
 }
 
 
