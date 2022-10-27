@@ -6,6 +6,9 @@
   <meta charset="UTF-8">
   <title>Title</title>
 </head>
+<!--Setja inn div sem tékkar á Exercise type? (t.d. ef að exercise er bw ekki sýna kg,
+og líka ef exercise er cardio sýna tíma og lengd í staðinn fyrir sets reps kg...
+) </!-->
 <body>
 <form action="#" th:action="@{/workout/{id}/addExercise(id=${workout.ID})}" th:object="${exerciseCombo}" method="post">
   <label for="exercise_title">Title</label>

@@ -48,7 +48,7 @@ public class ExerciseController {
      * @param
      * @return
      */
-    @RequestMapping(value = "workout/addExercise/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "workout/{id}/addExercise", method = RequestMethod.GET)
     public String addExerciseComboForm(ExerciseCombo exerciseCombo,@PathVariable("id") long id,Model model){
         Workout workoutToOpen = workoutService.findByID(id);
         model.addAttribute("workout", workoutToOpen);
@@ -61,13 +61,11 @@ public class ExerciseController {
      * @param
      * @return
      */
-    @RequestMapping(value = "/workout/addExercise/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/workout/{id}/addExercise", method = RequestMethod.POST)
     public String addExerciseCombo(ExerciseCombo exerciseCombo,@PathVariable("id") long workout_id, String exercise_title, int reps, int sets, double kg){
         exerciseCombo.setExercise(exerciseService.findByTitle(exercise_title));
         exerciseCombo.setWorkout(workoutService.findByID(workout_id));
-
         exerciseComboService.save(exerciseCombo);
         return "redirect:/workout/{id}";
     }
-
 }
