@@ -1,7 +1,5 @@
 package is.hi.hbv501g.hbv501g.Controllers;
-
 import is.hi.hbv501g.hbv501g.Persistance.Entities.ExerciseCombo;
-import is.hi.hbv501g.hbv501g.Persistance.Entities.User;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Services.ExerciseComboService;
 import is.hi.hbv501g.hbv501g.Services.ExerciseService;
@@ -14,9 +12,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-
 import java.util.List;
+
+/******************************************************************************
+ *  Nafn    : Hópur 7
+ *  T-póstur: sns25@hi.is, kjg18@hi.is, hrj53@hi.is, mmo15@hi.is
+ *
+ *  Lýsing  : Controller fyrir Workout klasann. Controllerinn inniheldur aðferðir
+ *  sem lista upp öll workout sem eru í boði, auk þess að bjóða notandanum upp á
+ *  að búa til sína eigin æfingu og bæta henni við listann. Notandi getur einnig
+ *  eytt workouts og opnað hverja workout til að sjá hvað hún inniheldur.
+ *
+ *****************************************************************************/
 
 @Controller
 public class WorkoutController {

@@ -1,48 +1,32 @@
 package is.hi.hbv501g.hbv501g.Services.Implementation;
-
 import is.hi.hbv501g.hbv501g.Persistance.Entities.User;
 import is.hi.hbv501g.hbv501g.Persistance.Repositories.UserRepository;
 import is.hi.hbv501g.hbv501g.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
+/******************************************************************************
+ *  Nafn    : Hópur 7
+ *  T-póstur: sns25@hi.is, kjg18@hi.is, hrj53@hi.is, mmo15@hi.is
+ *
+ *  Lýsing  : Implementation á UserService. Inniheldur leitaraðferðir
+ *  ásamt því að hafa aðferðir sem eyða og vista user. Klasinn talar
+ *  við UserRepository og kallar á aðferðirnar sem eru þar. Inniheldur
+ *  einnig aðferð sem athugar hvort notandi sé skráður inn og eins hvort
+ *  að nota sé til áður en hann er skráður inn.
+ *
+ *****************************************************************************/
 
 @Service
 public class UserServiceImplementation implements UserService {
 
     private final UserRepository userRepository;
 
-    // Use autowiring through the constructor
     @Autowired
     public UserServiceImplementation(UserRepository userRepository){
         this.userRepository = userRepository;
-    }
-
-    public User registerUser(String login, String password, String email){
-        if(login == null && password == null){
-            return null;
-        }
-        else {
-            // TODO láta user fá error message ef þetta username er til
-            if (userRepository.findFirstByLogin(login).isPresent()) {
-                System.out.println("Duplicate login");
-                return null;
-            }
-            User user = new User();
-            user.setLogin(login);
-            user.setPassword(password);
-            user.setEmail(email);
-            return userRepository.save(user);
-        }
-    }
-
-
-    // Authentication method
-    public User authenticate(String login, String password){
-        return userRepository.findByLoginAndPassword(login, password).orElse(null);
     }
 
     @Override
@@ -60,23 +44,34 @@ public class UserServiceImplementation implements UserService {
         return userRepository.findAll();
     }
 
-
     @Override
-    public User findByLogin(String login) {
-        return userRepository.findByLogin(login);
-    }
-
-    @Override
-    public User login(User user) {
-        return null;
-    }
-
-    @Override
-    public Optional<User> findByLoginPassword(String login, String password) {
-        return Optional.empty();
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     /**
+     * Athugar hvort notandi sé skráður inn
+     *
+     * @param session HttpSession
+     * @return true ef notandi er skráður inn,  annars false
+     *
+     */
+    @Override
+    public Boolean userLoggedIn(HttpSession session) {
+        if(session.getAttribute("LoggedInUser") != null) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Athugar hvort notandi sé til og hvort lykilorðið sé rétt
+     *
+     * @param user núverandi notandi
+     * @return doesExist sem er núverandi notandi ef notandinn er til og
+     *         lykilorðið er rétt. Annar skilar fallið null.
+     *
+     */
     @Override
     public User login(User user) {
         User doesExist = findByUsername(user.getUsername());
@@ -87,7 +82,7 @@ public class UserServiceImplementation implements UserService {
         }
         return null;
     }
-    */
+
 
 
 

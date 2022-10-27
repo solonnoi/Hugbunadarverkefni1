@@ -1,5 +1,4 @@
 package is.hi.hbv501g.hbv501g.Controllers;
-
 import is.hi.hbv501g.hbv501g.Persistance.Entities.User;
 import is.hi.hbv501g.hbv501g.Services.Implementation.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,17 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import javax.servlet.http.HttpSession;
+
+/******************************************************************************
+ *  Nafn    : Hópur 7
+ *  T-póstur: sns25@hi.is, kjg18@hi.is, hrj53@hi.is, mmo15@hi.is
+ *
+ *  Lýsing  : Controller fyrir User klasann. Klasinn inniheldur aðferðir sem
+ *  gerir notandanum kleift að búa til nýjan aðgang og skrá sig inn á sinn
+ *  aðgang.
+ *
+ *****************************************************************************/
 
 // Allt sem er ready og er að gera einhverja logík
 // Lýsing á entities,
@@ -22,94 +32,79 @@ public class UserController {
         this.userServiceImplementation = userServiceImplementation;
     }
 
-    @RequestMapping(value= "/signup", method = RequestMethod.GET)
-    public String getRegisterPage(Model model){
-        model.addAttribute("registerRequest", new User());
+    /**
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    public String signupGET(User user) {
         return "signup_page";
     }
 
-    @RequestMapping(value= "/", method = RequestMethod.GET)
-    public String getLoginPage(Model model){
-        model.addAttribute("loginRequest", new User());
-        return "login_page";
-    }
-
+    /**
+     *
+     * @param
+     * @return
+     */
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String register(User user, BindingResult result, Model model){
-        // TODO Mögulega laga þetta því þetta er einhver simplified útgáfa
-        System.out.println("register request:" + user);
-        User registeredUser = userServiceImplementation.registerUser(user.getLogin(), user.getPassword(), user.getEmail());
-        return registeredUser == null ? "error_page1" : "redirect:/workouts";
-    }
-
-    // Viljum við skila sitthvorri error page ef username eða pw er vitlaust?
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String login(User user, BindingResult result, Model model){
-        System.out.println("login request:" + user);
-        User authenticated = userServiceImplementation.authenticate(user.getLogin(), user.getPassword());
-        if (authenticated != null) {
-            model.addAttribute("userLogin", authenticated.getLogin());
-            return "redirect:/workouts";
+    public String signupPOST(User user, BindingResult result, Model model){
+        if(result.hasErrors()) {
+            return "redirect:/signup_page";
         }
-        else {
-            return "error_page";
+        User exists = userServiceImplementation.findByUsername(user.getUsername());
+        if(exists != null){
+            userServiceImplementation.save(user);
         }
+        return "redirect:/workouts";
     }
-
-
-
-    //End points to add
-    // signup (GET, POST)
-    // login (GET, POST)
-    // loggedin (GET)
-
 
 
     /**
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public String signupGET(User user){
-        return "signup";
-    }
-
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String signupPOST(User user, BindingResult result, Model model){
-        if(result.hasErrors()){
-            return "redirect:/signup";
-        }
-        User exists = userService.findByUsername(user.getUsername());
-        if(exists == null){
-            userService.save(user);
-        }
-        return "redirect:/";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String loginGET(User user){
-        return "login";
+        return "login_page";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+
+    /**
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public String loginPOST(User user, BindingResult result, Model model, HttpSession session){
         if(result.hasErrors()){
-            return "login";
+            return "error_page1";
         }
-        User exists = userService.login(user);
+        User exists = userServiceImplementation.login(user);
         if(exists != null){
             session.setAttribute("LoggedInUser", exists);
             model.addAttribute("LoggedInUser", exists);
+            System.out.println(user);
             return "LoggedInUser";
         }
-        return "redirect:/";
+        return "redirect:/workouts";
     }
 
+
+    /**
+     *
+     * @param
+     * @return
+     */
     @RequestMapping(value = "/loggedin", method = RequestMethod.GET)
     public String loggedinGET(HttpSession session, Model model){
         User sessionUser = (User) session.getAttribute("LoggedInUser");
-        if(sessionUser  != null){
+        if(sessionUser != null) {
             model.addAttribute("LoggedInUser", sessionUser);
-            return "redirect:/";
+            return "LoggedInUser";
         }
-        return "redirect:/";
+        return "redirect:/workouts";
     }
-    */
+
 }

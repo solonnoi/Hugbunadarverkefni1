@@ -1,5 +1,4 @@
 package is.hi.hbv501g.hbv501g.Services.Implementation;
-
 import is.hi.hbv501g.hbv501g.Persistance.Entities.ExerciseCombo;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Persistance.Repositories.ExerciseComboRepository;
@@ -8,8 +7,18 @@ import is.hi.hbv501g.hbv501g.Persistance.Repositories.WorkoutRepository;
 import is.hi.hbv501g.hbv501g.Services.ExerciseComboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+
+/******************************************************************************
+ *  Nafn    : Hópur 7
+ *  T-póstur: sns25@hi.is, kjg18@hi.is, hrj53@hi.is, mmo15@hi.is
+ *
+ *  Lýsing  : Implementation á ExerciseComboService. Inniheldur leitaraðferðir
+ *  ásamt því að hafa aðferðir sem eyða og vista exerciseCombo. Klasinn talar
+ *  við ExerciseComboRepository og kallar á aðferðirnar sem eru þar.
+ *
+ *****************************************************************************/
+
 
 @Service
 public class ExerciseComboServiceImplementation implements ExerciseComboService {

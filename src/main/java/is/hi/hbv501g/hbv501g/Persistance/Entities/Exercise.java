@@ -4,7 +4,17 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/******************************************************************************
+ *  Nafn    : Hópur 7
+ *  T-póstur: sns25@hi.is, kjg18@hi.is, hrj53@hi.is, mmo15@hi.is
+ *
+ *  Lýsing  : Þetta er klasi sem býr til töfluna exercises,
+ *  Klasinn autogenerate-ar ID fyrir hvern og einn user,
+ *  Það er OneToMany tenging frá exercises töflunni yfir í exercise_combos töfluna.
+ *
+ *****************************************************************************/
 
+// Inniheldur allt sem við viljum setja inn
 @Entity
 @Table(name = "exercises")
 public class Exercise {
