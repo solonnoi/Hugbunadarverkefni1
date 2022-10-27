@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 /******************************************************************************
  *  Nafn    : Hópur 7
@@ -53,12 +54,11 @@ public class UserController {
             return "redirect:/signup_page";
         }
         User exists = userServiceImplementation.findByUsername(user.getUsername());
-        if(exists != null){
+        if(exists == null){
             userServiceImplementation.save(user);
         }
         return "redirect:/workouts";
     }
-
 
     /**
      *
@@ -69,7 +69,6 @@ public class UserController {
     public String loginGET(User user){
         return "login_page";
     }
-
 
     /**
      *
@@ -102,9 +101,18 @@ public class UserController {
         User sessionUser = (User) session.getAttribute("LoggedInUser");
         if(sessionUser != null) {
             model.addAttribute("LoggedInUser", sessionUser);
-            return "LoggedInUser";
+            // ATH breytti þessu - mögulega eitthvað skrítið
+            return "redirect:/workouts";
         }
         return "redirect:/workouts";
+    }
+
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public String logout(HttpSession session, Model model){
+        session.invalidate();
+        System.out.println("You are successfully logged out!");
+        return "redirect:/";
     }
 
 }

@@ -3,6 +3,7 @@ import is.hi.hbv501g.hbv501g.Persistance.Entities.ExerciseCombo;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Services.ExerciseComboService;
 import is.hi.hbv501g.hbv501g.Services.ExerciseService;
+import is.hi.hbv501g.hbv501g.Services.Implementation.UserServiceImplementation;
 import is.hi.hbv501g.hbv501g.Services.WorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -29,7 +30,7 @@ import java.util.List;
 public class WorkoutController {
     private WorkoutService workoutService;
     private ExerciseComboService exerciseComboService;
-    private ExerciseService exerciseService;
+
     @Autowired
     public WorkoutController(WorkoutService workoutService, ExerciseComboService exerciseComboService){
         this.workoutService = workoutService;
