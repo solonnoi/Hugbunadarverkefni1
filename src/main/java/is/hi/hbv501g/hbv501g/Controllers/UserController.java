@@ -85,9 +85,9 @@ public class UserController {
             session.setAttribute("LoggedInUser", exists);
             model.addAttribute("LoggedInUser", exists);
             System.out.println(user);
-            return "LoggedInUser";
+            return "redirect:/workouts";
         }
-        return "redirect:/workouts";
+        return "redirect:/error_page1";
     }
 
 
@@ -102,9 +102,9 @@ public class UserController {
         if(sessionUser != null) {
             model.addAttribute("LoggedInUser", sessionUser);
             // ATH breytti þessu - mögulega eitthvað skrítið
-            return "redirect:/workouts";
+            return "LoggedInUser";
         }
-        return "redirect:/workouts";
+        return "redirect:/";
     }
 
 
