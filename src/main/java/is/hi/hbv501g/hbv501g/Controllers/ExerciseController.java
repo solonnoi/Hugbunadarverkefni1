@@ -3,6 +3,7 @@ import is.hi.hbv501g.hbv501g.Persistance.Entities.ExerciseCombo;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Services.ExerciseComboService;
 import is.hi.hbv501g.hbv501g.Services.ExerciseService;
+import is.hi.hbv501g.hbv501g.Services.UserService;
 import is.hi.hbv501g.hbv501g.Services.WorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
 
 /******************************************************************************
  *  Nafn    : Hópur 7
@@ -23,17 +26,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ExerciseController {
-
     private ExerciseComboService exerciseComboService;
     private WorkoutService workoutService;
-
     private ExerciseService exerciseService;
+    private UserService userService;
 
     @Autowired
-    public ExerciseController(ExerciseComboService exerciseComboService, WorkoutService workoutService, ExerciseService exerciseService) {
+    public ExerciseController(ExerciseComboService exerciseComboService, WorkoutService workoutService, ExerciseService exerciseService, UserService userService) {
         this.exerciseComboService = exerciseComboService;
         this.exerciseService = exerciseService;
         this.workoutService = workoutService;
+        this.userService = userService;
     }
     // Er kannski best að fara inn í add exerciseCombo með path variable workoutID og
     // bæta því þannig við workouts...
@@ -41,6 +44,22 @@ public class ExerciseController {
     // Virkar náttúrulega ekki núna...
 
     //@GetMapping("/workout/{id}/addExercise")
+
+
+    /**
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "deleteExercise/{workout_id}/{id}", method = RequestMethod.GET)
+    public String deleteExercise(ExerciseCombo exerciseCombo, @PathVariable("id") long id, @PathVariable("workout_id") long workout_id, Model model, HttpSession session){
+        if(userService.userLoggedIn(session)) {
+            ExerciseCombo exerciseComboToDelete = exerciseComboService.findByID(id);
+            exerciseComboService.delete(exerciseComboToDelete);
+            return "redirect:/workout/{workout_id}";
+        }
+        return "redirect:/error_page1";
+    }
 
 
     /**
@@ -68,4 +87,7 @@ public class ExerciseController {
         exerciseComboService.save(exerciseCombo);
         return "redirect:/workout/{id}";
     }
+
+
+
 }
