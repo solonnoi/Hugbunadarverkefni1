@@ -1,5 +1,6 @@
 package is.hi.hbv501g.hbv501g.Controllers;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.ExerciseCombo;
+import is.hi.hbv501g.hbv501g.Persistance.Entities.User;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Services.ExerciseComboService;
 import is.hi.hbv501g.hbv501g.Services.ExerciseService;
@@ -93,8 +94,8 @@ public class WorkoutController {
         return "redirect:/error_page1";
     }
 
-    @RequestMapping("/myWorkouts")
-    public String myWorkouts(Model model, @Param("keyword") String keyword, HttpSession session){
+    @RequestMapping(value ="/myWorkouts",method = RequestMethod.GET)
+    public String myWorkoutsForm(Model model, @Param("keyword") String keyword, HttpSession session){
         if(userServiceImplementation.userLoggedIn(session)) {
             // Call a method in a service class
             List<Workout> myWorkouts = workoutService.listAll(keyword);
@@ -105,6 +106,21 @@ public class WorkoutController {
         }
         return "redirect:/error_page1";
     }
+
+    @RequestMapping(value="/addToMyWorkouts/{id}",method = RequestMethod.GET)
+    public String addToMyWorkouts(@PathVariable("id") long id,  Model model, HttpSession session){
+        if(userServiceImplementation.userLoggedIn(session)) {
+            //User userToAddWorkoutTo = userServiceImplementation.findByID(user.getID());
+            User userToAddWorkoutTo = (User) session.getAttribute("LoggedInUser");
+            Workout workoutToAddUserTo = workoutService.findByID(id);
+            workoutService.addUserToWorkout(userToAddWorkoutTo, workoutToAddUserTo);
+            userServiceImplementation.addWorkoutToUser(workoutToAddUserTo,userToAddWorkoutTo);
+            return "redirect:/workouts";
+        }
+        return "redirect:/error_page1";
+    }
+
+
 
 
 }

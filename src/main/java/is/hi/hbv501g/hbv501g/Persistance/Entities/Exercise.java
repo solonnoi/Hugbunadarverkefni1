@@ -22,8 +22,6 @@ public class Exercise {
     private String title;
     private String bodyPart;
     private String type;
-
-
     @OneToMany(mappedBy = "exercise",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExerciseCombo> exerciseCombo = new ArrayList<>();
 

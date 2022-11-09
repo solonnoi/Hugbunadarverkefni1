@@ -1,9 +1,13 @@
 package is.hi.hbv501g.hbv501g.Services.Implementation;
+import is.hi.hbv501g.hbv501g.Persistance.Entities.User;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Persistance.Repositories.WorkoutRepository;
 import is.hi.hbv501g.hbv501g.Services.WorkoutService;
+import org.hibernate.jdbc.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
 import java.util.List;
 
 /******************************************************************************
@@ -60,4 +64,12 @@ public class WorkoutServiceImplementation implements WorkoutService {
         }
         return workoutRepository.findAll();
     }
+
+    @Override
+    public void addUserToWorkout(User user,Workout workout) {
+       // List<User> userList = workout.getUser();
+        workout.getUser().add(user);
+    }
+
+
 }

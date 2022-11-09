@@ -1,5 +1,6 @@
 package is.hi.hbv501g.hbv501g.Services.Implementation;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.User;
+import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Persistance.Repositories.UserRepository;
 import is.hi.hbv501g.hbv501g.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,16 @@ public class UserServiceImplementation implements UserService {
         }
         return null;
     }
+    @Override
+    public User findByID(long id){
+        return userRepository.findByID(id);
+    }
 
+    @Override
+    public void addWorkoutToUser(Workout workout, User user ) {
+        user.getMyWorkouts().add(workout);
+
+    }
 
 
 

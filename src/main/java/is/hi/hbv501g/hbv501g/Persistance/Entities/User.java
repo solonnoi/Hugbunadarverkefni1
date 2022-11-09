@@ -24,7 +24,7 @@ public class User {
     private String password;
     // Breyta yfir í protected?
     private String email;
-    @ManyToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Workout> myWorkouts = new ArrayList<>();
     public User() {
     }

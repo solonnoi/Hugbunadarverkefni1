@@ -33,6 +33,7 @@
                 <th>Description</th>
                 <th>Open Workout</th>
                 <th>Delete</th>
+                <th>Add to MyWorkouts</th>
             </tr>
             </thead>
             <tbody>
@@ -42,6 +43,7 @@
                 <td th:text="${workout.description}"></td>
                 <td><a th:href="@{/workout/{id}(id=${workout.ID})}">Open Workout</a></td>
                 <td><a th:href="@{/delete/{id}(id=${workout.ID})}">Delete</a></td>
+                <td><a th:href="@{/addToMyWorkouts/{id}(id=${workout.ID})}">Add to MyWorkouts</a></td>
             </tr>
             </tbody>
         </table>
