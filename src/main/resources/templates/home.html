@@ -8,7 +8,7 @@
 <html xmlns:th="http://thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Workout System</title>
+    <title>Sperran</title>
 </head>
 <body>
 
@@ -47,6 +47,11 @@
         </table>
     </div>
     <p><a href="/addWorkout">Add a new workout</a></p>
+
+
+    <form th:action="@{/myWorkouts}" method="post">
+        <input type="submit" value="My Workouts" />
+    </form>
 
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Logout" />

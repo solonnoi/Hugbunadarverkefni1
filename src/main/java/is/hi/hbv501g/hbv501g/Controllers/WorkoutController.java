@@ -31,9 +31,7 @@ import javax.servlet.http.HttpSession;
 public class WorkoutController {
     private WorkoutService workoutService;
     private ExerciseComboService exerciseComboService;
-
     private UserServiceImplementation userServiceImplementation;
-
     @Autowired
     public WorkoutController(WorkoutService workoutService, ExerciseComboService exerciseComboService, UserServiceImplementation userServiceImplementation){
         this.workoutService = workoutService;
@@ -94,4 +92,19 @@ public class WorkoutController {
         }
         return "redirect:/error_page1";
     }
+
+    @RequestMapping("/myWorkouts")
+    public String myWorkouts(Model model, @Param("keyword") String keyword, HttpSession session){
+        if(userServiceImplementation.userLoggedIn(session)) {
+            // Call a method in a service class
+            List<Workout> myWorkouts = workoutService.listAll(keyword);
+            // Add some data to the model
+            model.addAttribute("workouts", myWorkouts);
+            model.addAttribute("keyword", keyword);
+            return "myWorkouts";
+        }
+        return "redirect:/error_page1";
+    }
+
+
 }

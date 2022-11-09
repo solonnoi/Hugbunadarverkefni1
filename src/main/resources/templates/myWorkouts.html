@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<script type="text/javascript">
+  function clearSearch() {
+    window.location = "[[@{/workouts}]]";
+  }
+</script>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workout System</title>
+</head>
+<body>
+
+<form th:action="@{/myWorkouts}">
+  Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
+  &nbsp;
+  <input type="submit" value="Search" />
+  &nbsp;
+  <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+</form>
+
+<form th:action="@{/workouts}" method="post">
+  <input type="submit" value="Back to workouts" />
+</form>
+
+<div th:switch="${workouts}">
+  <h2 th:case="null">You haven't created any workouts yet! :(</h2>
+  <div th:case="*">
+    <h2>My workouts</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Duration</th>
+        <th>Description</th>
+        <th>Open Workout</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="workout : ${workouts}">
+        <td th:text="${workout.title}"></td>
+        <td th:text="${workout.duration}"></td>
+        <td th:text="${workout.description}"></td>
+        <td><a th:href="@{/workout/{id}(id=${workout.ID})}">Open Workout</a></td>
+        <td><a th:href="@{/delete/{id}(id=${workout.ID})}">Delete</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <p><a href="/addWorkout">Add a new workout</a></p>
+
+  <form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+  </form>
+
+
+
+
+</div>
+
+
+
+</body>
+</html>
+

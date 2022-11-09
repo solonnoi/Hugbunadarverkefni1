@@ -25,8 +25,9 @@ public class Workout {
     private String description;
     @OneToMany(mappedBy = "workout",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExerciseCombo> exerciseCombo = new ArrayList<>();
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    // Setja inn ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<User> user;
 
     public List<ExerciseCombo> getExerciseCombo() {
         return exerciseCombo;

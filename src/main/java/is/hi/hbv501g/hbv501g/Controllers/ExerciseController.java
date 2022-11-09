@@ -38,14 +38,6 @@ public class ExerciseController {
         this.workoutService = workoutService;
         this.userService = userService;
     }
-    // Er kannski best að fara inn í add exerciseCombo með path variable workoutID og
-    // bæta því þannig við workouts...
-    // Þá geymum við uppl. hvaða workout við viljum bæta combo-inu við
-    // Virkar náttúrulega ekki núna...
-
-    //@GetMapping("/workout/{id}/addExercise")
-
-
     /**
      *
      * @param
@@ -60,8 +52,6 @@ public class ExerciseController {
         }
         return "redirect:/error_page1";
     }
-
-
     /**
      *
      * @param
@@ -74,7 +64,6 @@ public class ExerciseController {
 
         return "addExerciseCombo";
     }
-
     /**
      *
      * @param
