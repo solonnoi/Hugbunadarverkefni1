@@ -115,6 +115,8 @@ public class WorkoutController {
             Workout workoutToAddUserTo = workoutService.findByID(id);
             workoutService.addUserToWorkout(userToAddWorkoutTo, workoutToAddUserTo);
             userServiceImplementation.addWorkoutToUser(workoutToAddUserTo,userToAddWorkoutTo);
+
+            //model.addAttribute("myWorkouts", myWorkouts);
             return "redirect:/workouts";
         }
         return "redirect:/error_page1";

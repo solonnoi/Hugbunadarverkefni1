@@ -67,8 +67,9 @@ public class WorkoutServiceImplementation implements WorkoutService {
 
     @Override
     public void addUserToWorkout(User user,Workout workout) {
-       // List<User> userList = workout.getUser();
+        List<User> userList = workout.getUser();
         workout.getUser().add(user);
+         int gjemli = userList.size();
     }
 
 
