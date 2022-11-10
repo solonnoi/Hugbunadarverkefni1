@@ -65,6 +65,11 @@ public class Workout {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public void setUser(List<User> user) {
+        this.user = user;
+    }
+
     public String getDescription() {return description;}
     public List<ExerciseCombo> getExerciseCombo() {
         return exerciseCombo;

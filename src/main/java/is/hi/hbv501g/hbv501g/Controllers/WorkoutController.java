@@ -94,34 +94,44 @@ public class WorkoutController {
         return "redirect:/error_page1";
     }
 
-    @RequestMapping(value ="/myWorkouts",method = RequestMethod.GET)
+    @RequestMapping(value ="/myWorkouts",method = RequestMethod.POST)
     public String myWorkoutsForm(Model model, @Param("keyword") String keyword, HttpSession session){
         if(userServiceImplementation.userLoggedIn(session)) {
             // Call a method in a service class
-            List<Workout> myWorkouts = workoutService.listAll(keyword);
+            //List<Workout> myWorkouts = workoutService.listAll(keyword);
+            User userToAddWorkoutTo = (User) session.getAttribute("LoggedInUser");
+            List <Workout> workoutsToDisplay = userToAddWorkoutTo.getMyWorkouts();
+            model.addAttribute( "workoutsToDisplay", workoutsToDisplay);
+
             // Add some data to the model
-            model.addAttribute("workouts", myWorkouts);
-            model.addAttribute("keyword", keyword);
+           // model.addAttribute("workouts", workoutsToDisplay);
+            //model.addAttribute("keyword", keyword);
             return "myWorkouts";
         }
         return "redirect:/error_page1";
     }
 
-    @RequestMapping(value="/addToMyWorkouts/{id}",method = RequestMethod.GET)
+    @RequestMapping(value="/addToMyWorkouts/{id}", method = RequestMethod.GET)
     public String addToMyWorkouts(@PathVariable("id") long id,  Model model, HttpSession session){
         if(userServiceImplementation.userLoggedIn(session)) {
             //User userToAddWorkoutTo = userServiceImplementation.findByID(user.getID());
             User userToAddWorkoutTo = (User) session.getAttribute("LoggedInUser");
             Workout workoutToAddUserTo = workoutService.findByID(id);
-            workoutService.addUserToWorkout(userToAddWorkoutTo, workoutToAddUserTo);
-            userServiceImplementation.addWorkoutToUser(workoutToAddUserTo,userToAddWorkoutTo);
 
-            //model.addAttribute("myWorkouts", myWorkouts);
+            userToAddWorkoutTo.getMyWorkouts().add(workoutToAddUserTo);
+            userToAddWorkoutTo.setMyWorkouts((userToAddWorkoutTo.getMyWorkouts()));
+
+            workoutToAddUserTo.getUser().add(userToAddWorkoutTo);
+            workoutToAddUserTo.setUser(workoutToAddUserTo.getUser());
+
+
             return "redirect:/workouts";
         }
         return "redirect:/error_page1";
     }
-
+    //workoutService.addUserToWorkout(userToAddWorkoutTo, workoutToAddUserTo);
+    //userServiceImplementation.addWorkoutToUser(workoutToAddUserTo,userToAddWorkoutTo);
+    //model.addAttribute("myWorkouts", myWorkouts);
 
 
 

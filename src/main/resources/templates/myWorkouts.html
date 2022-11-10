@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <script type="text/javascript">
   function clearSearch() {
-    window.location = "[[@{/workouts}]]";
+    window.location = "[[@{/myWorkouts}]]";
   }
 </script>
 <html xmlns:th="http://thymeleaf.org" lang="en">
@@ -23,7 +23,7 @@
   <input type="submit" value="Back to workouts" />
 </form>
 
-<div th:switch="${workouts}">
+<div th:switch="${workoutsToDisplay}">
   <h2 th:case="null">You haven't created any workouts yet! :(</h2>
   <div th:case="*">
     <h2>My workouts</h2>
@@ -38,7 +38,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="workout : ${workouts}">
+      <tr th:each="workout : ${workoutsToDisplay}">
         <td th:text="${workout.title}"></td>
         <td th:text="${workout.duration}"></td>
         <td th:text="${workout.description}"></td>

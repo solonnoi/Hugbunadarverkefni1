@@ -59,11 +59,9 @@ public class User {
     public List<Workout> getMyWorkouts() {
         return myWorkouts;
     }
-
     public void setMyWorkouts(List<Workout> myWorkouts) {
         this.myWorkouts = myWorkouts;
     }
-
     public String getEmail() {
         return email;
     }

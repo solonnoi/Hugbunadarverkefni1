@@ -71,6 +71,4 @@ public class WorkoutServiceImplementation implements WorkoutService {
         workout.getUser().add(user);
          int gjemli = userList.size();
     }
-
-
 }
