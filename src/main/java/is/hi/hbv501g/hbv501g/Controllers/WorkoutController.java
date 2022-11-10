@@ -14,6 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 
@@ -93,9 +96,37 @@ public class WorkoutController {
         }
         return "redirect:/error_page1";
     }
+    @RequestMapping(value="/deleteMyWorkout/{id}",method = RequestMethod.GET)
+    public String deleteMyWorkout(@PathVariable("id") long id,  Model model, HttpSession session){
+        if(userServiceImplementation.userLoggedIn(session)) {
+            User userToDeleteFromWorkout = (User) session.getAttribute("LoggedInUser");
+            Workout workoutToDeleteFromUser = workoutService.findByID(id);
+            //int removeWorkoutIndex = userToDeleteFromWorkout.getMyWorkouts().indexOf(workoutToDeleteFromUser);
+            // int removeUserIndex = workoutToDeleteFromUser.getUser().indexOf(userToDeleteFromWorkout);
+            List<Workout> workoutList = userToDeleteFromWorkout.getMyWorkouts();
+
+            //userToDeleteFromWorkout.getMyWorkouts().remove(userToDeleteFromWorkout.getMyWorkouts().indexOf(workoutToDeleteFromUser));
+            userToDeleteFromWorkout.getMyWorkouts().remove(0);
+            userToDeleteFromWorkout.setMyWorkouts((userToDeleteFromWorkout.getMyWorkouts()));
+
+            //workoutToDeleteFromUser.getUser().remove(workoutToDeleteFromUser.getUser().indexOf(userToDeleteFromWorkout));
+            workoutToDeleteFromUser.getUser().remove(0);
+            workoutToDeleteFromUser.setUser(workoutToDeleteFromUser.getUser());
+
+
+            workoutService.save(workoutToDeleteFromUser);
+            userServiceImplementation.save(userToDeleteFromWorkout);
+
+            return "redirect:/myWorkouts";
+        }
+        return "redirect:/error_page1";
+    }
+
+
+
 
     @RequestMapping(value ="/myWorkouts",method = RequestMethod.POST)
-    public String myWorkoutsForm(Model model, @Param("keyword") String keyword, HttpSession session){
+    public String myWorkoutsForm(Model model/*, @Param("keyword") String keyword, */,HttpSession session){
         if(userServiceImplementation.userLoggedIn(session)) {
             // Call a method in a service class
             //List<Workout> myWorkouts = workoutService.listAll(keyword);
@@ -104,7 +135,7 @@ public class WorkoutController {
             model.addAttribute( "workoutsToDisplay", workoutsToDisplay);
 
             // Add some data to the model
-           // model.addAttribute("workouts", workoutsToDisplay);
+            // model.addAttribute("workouts", workoutsToDisplay);
             //model.addAttribute("keyword", keyword);
             return "myWorkouts";
         }
@@ -117,15 +148,18 @@ public class WorkoutController {
             //User userToAddWorkoutTo = userServiceImplementation.findByID(user.getID());
             User userToAddWorkoutTo = (User) session.getAttribute("LoggedInUser");
             Workout workoutToAddUserTo = workoutService.findByID(id);
+            //List<Workout> workoutList = userToAddWorkoutTo.getMyWorkouts();
+            boolean workoutDoesExist = userToAddWorkoutTo.getMyWorkouts().contains(workoutToAddUserTo.getID());
+            if(!workoutDoesExist) {
+                userToAddWorkoutTo.getMyWorkouts().add(workoutToAddUserTo);
+                userToAddWorkoutTo.setMyWorkouts((userToAddWorkoutTo.getMyWorkouts()));
 
-            userToAddWorkoutTo.getMyWorkouts().add(workoutToAddUserTo);
-            userToAddWorkoutTo.setMyWorkouts((userToAddWorkoutTo.getMyWorkouts()));
-
-            workoutToAddUserTo.getUser().add(userToAddWorkoutTo);
-            workoutToAddUserTo.setUser(workoutToAddUserTo.getUser());
-
-
-            return "redirect:/workouts";
+                workoutToAddUserTo.getUser().add(userToAddWorkoutTo);
+                workoutToAddUserTo.setUser(workoutToAddUserTo.getUser());
+                workoutService.save(workoutToAddUserTo);
+                userServiceImplementation.save(userToAddWorkoutTo);
+                return "redirect:/workouts";
+            }else return "redirect:/error_page1";
         }
         return "redirect:/error_page1";
     }
