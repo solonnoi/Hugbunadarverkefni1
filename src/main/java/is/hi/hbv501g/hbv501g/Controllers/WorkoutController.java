@@ -65,6 +65,14 @@ public class WorkoutController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/workoutTil")
+    public String workoutTil(HttpSession session){
+        if(userService.userLoggedIn(session)) {
+            return "workoutTil";
+        }
+        return "redirect:/error_page1";
+    }
+
     @RequestMapping(value = "/addWorkout",method = RequestMethod.POST)
     public String addWorkout(Workout workout, BindingResult result,Model model, HttpSession session){
         if(userService.userLoggedIn(session)) {
@@ -103,16 +111,23 @@ public class WorkoutController {
         if(userService.userLoggedIn(session)) {
             User userToDeleteFromWorkout = (User) session.getAttribute("LoggedInUser");
             Workout workoutToDeleteFromUser = workoutService.findByID(id);
-            //int removeWorkoutIndex = userToDeleteFromWorkout.getMyWorkouts().indexOf(workoutToDeleteFromUser);
-            // int removeUserIndex = workoutToDeleteFromUser.getUser().indexOf(userToDeleteFromWorkout);
-            List<Workout> workoutList = userToDeleteFromWorkout.getMyWorkouts();
 
-            //userToDeleteFromWorkout.getMyWorkouts().remove(userToDeleteFromWorkout.getMyWorkouts().indexOf(workoutToDeleteFromUser));
-            userToDeleteFromWorkout.getMyWorkouts().remove(0);
+            for(Workout w:userToDeleteFromWorkout.getMyWorkouts()){
+                if(w.getID()==workoutToDeleteFromUser.getID()){
+                    userToDeleteFromWorkout.getMyWorkouts().remove(userToDeleteFromWorkout.getMyWorkouts().indexOf(w));
+                    break;
+                }
+            }
+
             userToDeleteFromWorkout.setMyWorkouts((userToDeleteFromWorkout.getMyWorkouts()));
 
-            //workoutToDeleteFromUser.getUser().remove(workoutToDeleteFromUser.getUser().indexOf(userToDeleteFromWorkout));
-            workoutToDeleteFromUser.getUser().remove(0);
+            for(User u:workoutToDeleteFromUser.getUser()){
+                if(u.getID()==userToDeleteFromWorkout.getID()){
+                    workoutToDeleteFromUser.getUser().remove(workoutToDeleteFromUser.getUser().indexOf(u));
+                    break;
+                }
+            }
+
             workoutToDeleteFromUser.setUser(workoutToDeleteFromUser.getUser());
 
             workoutService.save(workoutToDeleteFromUser);
@@ -120,7 +135,7 @@ public class WorkoutController {
 
             return "redirect:/myWorkouts";
         }
-        return "redirect:/";
+        return "redirect:/error_page1";
     }
 
 
@@ -143,26 +158,45 @@ public class WorkoutController {
         return "redirect:/";
     }
 
+    @RequestMapping(value ="/myWorkouts")
+    public String myWorkout(Model model/*, @Param("keyword") String keyword, */,HttpSession session){
+        if(userService.userLoggedIn(session)) {
+            // Call a method in a service class
+            //List<Workout> myWorkouts = workoutService.listAll(keyword);
+            User userToAddWorkoutTo = (User) session.getAttribute("LoggedInUser");
+            List <Workout> workoutsToDisplay = userToAddWorkoutTo.getMyWorkouts();
+            model.addAttribute( "workoutsToDisplay", workoutsToDisplay);
+            return "myWorkouts";
+        }
+        return "redirect:/";
+    }
+
     @RequestMapping(value="/addToMyWorkouts/{id}", method = RequestMethod.GET)
     public String addToMyWorkouts(@PathVariable("id") long id,  Model model, HttpSession session){
         if(userService.userLoggedIn(session)) {
-            //User userToAddWorkoutTo = userServiceImplementation.findByID(user.getID());
             User userToAddWorkoutTo = (User) session.getAttribute("LoggedInUser");
             Workout workoutToAddUserTo = workoutService.findByID(id);
-            //List<Workout> workoutList = userToAddWorkoutTo.getMyWorkouts();
-            boolean workoutDoesExist = userToAddWorkoutTo.getMyWorkouts().contains(workoutToAddUserTo.getID());
-            if(!workoutDoesExist) {
+
+            List<Long> wIDs = new ArrayList<>();
+
+            boolean workoutDoesExist = false; //gerum fyrst ráð fyrir að workoutið sé ekki nú þegar í MyWorkouts
+            for (Workout w : userToAddWorkoutTo.getMyWorkouts()) {
+                wIDs.add(w.getID());
+            }
+            if (wIDs.contains(workoutToAddUserTo.getID())) workoutDoesExist = true;
+
+            if (!workoutDoesExist) {
                 userToAddWorkoutTo.getMyWorkouts().add(workoutToAddUserTo);
-                userToAddWorkoutTo.setMyWorkouts((userToAddWorkoutTo.getMyWorkouts()));
+                userToAddWorkoutTo.setMyWorkouts(userToAddWorkoutTo.getMyWorkouts());
 
                 workoutToAddUserTo.getUser().add(userToAddWorkoutTo);
                 workoutToAddUserTo.setUser(workoutToAddUserTo.getUser());
                 workoutService.save(workoutToAddUserTo);
                 userService.save(userToAddWorkoutTo);
                 return "redirect:/workouts";
-            }else return "redirect:/";
+            } else return "redirect:/workoutTil";
         }
-        return "redirect:/";
+        return "redirect:/error_page1";
     }
     //workoutService.addUserToWorkout(userToAddWorkoutTo, workoutToAddUserTo);
     //userServiceImplementation.addWorkoutToUser(workoutToAddUserTo,userToAddWorkoutTo);
