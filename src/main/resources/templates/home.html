@@ -35,7 +35,6 @@ Welcome,
                 <th>Duration</th>
                 <th>Description</th>
                 <th>Open Workout</th>
-                <th>Add to MyWorkouts</th>
             </tr>
             </thead>
             <tbody>
@@ -44,7 +43,6 @@ Welcome,
                 <td th:text="${workout.duration}"></td>
                 <td th:text="${workout.description}"></td>
                 <td><a th:href="@{/workout/{id}(id=${workout.ID})}">Open Workout</a></td>
-                <td><a th:href="@{/addToMyWorkouts/{id}(id=${workout.ID})}">Add to MyWorkouts</a></td>
             </tr>
             </tbody>
         </table>
