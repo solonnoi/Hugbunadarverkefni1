@@ -1,6 +1,6 @@
 package is.hi.hbv501g.hbv501g.Controllers;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.User;
-import is.hi.hbv501g.hbv501g.Services.Implementation.UserServiceImplementation;
+import is.hi.hbv501g.hbv501g.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,11 +26,11 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class UserController {
 
-    private final UserServiceImplementation userServiceImplementation;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserServiceImplementation userServiceImplementation){
-        this.userServiceImplementation = userServiceImplementation;
+    public UserController(UserService userService){
+        this.userService = userService;
     }
 
     /**
@@ -53,9 +53,9 @@ public class UserController {
         if(result.hasErrors()) {
             return "redirect:/signup_page";
         }
-        User exists = userServiceImplementation.findByUsername(user.getUsername());
+        User exists = userService.findByUsername(user.getUsername());
         if(exists == null){
-            userServiceImplementation.save(user);
+            userService.save(user);
         }
         return "redirect:/workouts";
     }
@@ -80,7 +80,7 @@ public class UserController {
         if(result.hasErrors()){
             return "error_page1";
         }
-        User exists = userServiceImplementation.login(user);
+        User exists = userService.login(user);
         if(exists != null){
             session.setAttribute("LoggedInUser", exists);
             model.addAttribute("LoggedInUser", exists);
@@ -106,8 +106,6 @@ public class UserController {
         }
         return "redirect:/";
     }
-
-
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public String logout(HttpSession session, Model model){
         session.invalidate();

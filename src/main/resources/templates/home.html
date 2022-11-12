@@ -20,6 +20,9 @@
     &nbsp;
     <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
 </form>
+Welcome,
+
+<p th:text="${LoggedInUser.username}"></p>
 
 <div th:switch="${workouts}">
     <h2 th:case="null">No workouts yet!</h2>

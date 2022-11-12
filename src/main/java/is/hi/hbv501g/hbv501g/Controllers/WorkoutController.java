@@ -4,7 +4,7 @@ import is.hi.hbv501g.hbv501g.Persistance.Entities.User;
 import is.hi.hbv501g.hbv501g.Persistance.Entities.Workout;
 import is.hi.hbv501g.hbv501g.Services.ExerciseComboService;
 import is.hi.hbv501g.hbv501g.Services.ExerciseService;
-import is.hi.hbv501g.hbv501g.Services.Implementation.UserServiceImplementation;
+import is.hi.hbv501g.hbv501g.Services.UserService;
 import is.hi.hbv501g.hbv501g.Services.WorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -35,29 +35,31 @@ import javax.servlet.http.HttpSession;
 public class WorkoutController {
     private WorkoutService workoutService;
     private ExerciseComboService exerciseComboService;
-    private UserServiceImplementation userServiceImplementation;
+    private UserService userService;
     @Autowired
-    public WorkoutController(WorkoutService workoutService, ExerciseComboService exerciseComboService, UserServiceImplementation userServiceImplementation){
+    public WorkoutController(WorkoutService workoutService, ExerciseComboService exerciseComboService, UserService userService){
         this.workoutService = workoutService;
         this.exerciseComboService = exerciseComboService;
-        this.userServiceImplementation = userServiceImplementation;
+        this.userService = userService;
     }
 
     @RequestMapping("/workouts")
     public String homePage(Model model, @Param("keyword") String keyword, HttpSession session){
-        if(userServiceImplementation.userLoggedIn(session)) {
+        if(userService.userLoggedIn(session)) {
             // Call a method in a service class
             List<Workout> allWorkouts = workoutService.listAll(keyword);
+            User loggedInUser = (User) session.getAttribute("LoggedInUser");
             // Add some data to the model
             model.addAttribute("workouts", allWorkouts);
             model.addAttribute("keyword", keyword);
+            model.addAttribute("LoggedInUser", loggedInUser);
             return "home";
         }
         return "redirect:/error_page1";
     }
     @RequestMapping(value = "/addWorkout",method = RequestMethod.GET)
     public String addWorkoutForm(Workout workout, HttpSession session){
-        if(userServiceImplementation.userLoggedIn(session)) {
+        if(userService.userLoggedIn(session)) {
             return "addWorkout";
         }
         return "redirect:/error_page1";
@@ -65,7 +67,7 @@ public class WorkoutController {
 
     @RequestMapping(value = "/addWorkout",method = RequestMethod.POST)
     public String addWorkout(Workout workout, BindingResult result,Model model, HttpSession session){
-        if(userServiceImplementation.userLoggedIn(session)) {
+        if(userService.userLoggedIn(session)) {
             if (result.hasErrors()) {
                 return "addWorkout";
             }
@@ -76,7 +78,7 @@ public class WorkoutController {
     }
     @RequestMapping(value="/delete/{id}",method = RequestMethod.GET)
     public String deleteWorkout(@PathVariable("id") long id,  Model model, HttpSession session){
-        if(userServiceImplementation.userLoggedIn(session)) {
+        if(userService.userLoggedIn(session)) {
             Workout workoutToDelete = workoutService.findByID(id);
             workoutService.delete(workoutToDelete);
             return "redirect:/workouts";
@@ -85,7 +87,7 @@ public class WorkoutController {
     }
     @RequestMapping(value = "/workout/{id}",method = RequestMethod.GET)
     public String openWorkoutForm(@PathVariable("id") long id,Model model, HttpSession session){
-        if(userServiceImplementation.userLoggedIn(session)) {
+        if(userService.userLoggedIn(session)) {
             Workout workoutToOpen = workoutService.findByID(id);
             List<ExerciseCombo> exerciseCombos = exerciseComboService.findByWorkout(workoutToOpen);
             //List<ExerciseCombo> exerciseCombosToOpen = exerciseComboService.findAll();
@@ -98,7 +100,7 @@ public class WorkoutController {
     }
     @RequestMapping(value="/deleteMyWorkout/{id}",method = RequestMethod.GET)
     public String deleteMyWorkout(@PathVariable("id") long id,  Model model, HttpSession session){
-        if(userServiceImplementation.userLoggedIn(session)) {
+        if(userService.userLoggedIn(session)) {
             User userToDeleteFromWorkout = (User) session.getAttribute("LoggedInUser");
             Workout workoutToDeleteFromUser = workoutService.findByID(id);
             //int removeWorkoutIndex = userToDeleteFromWorkout.getMyWorkouts().indexOf(workoutToDeleteFromUser);
@@ -115,7 +117,7 @@ public class WorkoutController {
 
 
             workoutService.save(workoutToDeleteFromUser);
-            userServiceImplementation.save(userToDeleteFromWorkout);
+            userService.save(userToDeleteFromWorkout);
 
             return "redirect:/myWorkouts";
         }
@@ -127,7 +129,7 @@ public class WorkoutController {
 
     @RequestMapping(value ="/myWorkouts",method = RequestMethod.POST)
     public String myWorkoutsForm(Model model/*, @Param("keyword") String keyword, */,HttpSession session){
-        if(userServiceImplementation.userLoggedIn(session)) {
+        if(userService.userLoggedIn(session)) {
             // Call a method in a service class
             //List<Workout> myWorkouts = workoutService.listAll(keyword);
             User userToAddWorkoutTo = (User) session.getAttribute("LoggedInUser");
@@ -144,7 +146,7 @@ public class WorkoutController {
 
     @RequestMapping(value="/addToMyWorkouts/{id}", method = RequestMethod.GET)
     public String addToMyWorkouts(@PathVariable("id") long id,  Model model, HttpSession session){
-        if(userServiceImplementation.userLoggedIn(session)) {
+        if(userService.userLoggedIn(session)) {
             //User userToAddWorkoutTo = userServiceImplementation.findByID(user.getID());
             User userToAddWorkoutTo = (User) session.getAttribute("LoggedInUser");
             Workout workoutToAddUserTo = workoutService.findByID(id);
@@ -157,7 +159,7 @@ public class WorkoutController {
                 workoutToAddUserTo.getUser().add(userToAddWorkoutTo);
                 workoutToAddUserTo.setUser(workoutToAddUserTo.getUser());
                 workoutService.save(workoutToAddUserTo);
-                userServiceImplementation.save(userToAddWorkoutTo);
+                userService.save(userToAddWorkoutTo);
                 return "redirect:/workouts";
             }else return "redirect:/error_page1";
         }
