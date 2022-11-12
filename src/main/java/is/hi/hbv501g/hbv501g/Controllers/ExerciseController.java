@@ -50,7 +50,7 @@ public class ExerciseController {
             exerciseComboService.delete(exerciseComboToDelete);
             return "redirect:/workout/{workout_id}";
         }
-        return "redirect:/error_page1";
+        return "redirect:/";
     }
     /**
      *
@@ -64,7 +64,7 @@ public class ExerciseController {
             model.addAttribute("workout", workoutToOpen);
             return "addExerciseCombo";
         }
-        return "redirect:/error_page1";
+        return "redirect:/";
     }
     /**
      *
@@ -79,7 +79,7 @@ public class ExerciseController {
             exerciseComboService.save(exerciseCombo);
             return "redirect:/workout/{id}";
         }
-        return "redirect:/error_page1";
+        return "redirect:/";
     }
 
 

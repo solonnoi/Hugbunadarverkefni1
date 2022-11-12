@@ -55,14 +55,14 @@ public class WorkoutController {
             model.addAttribute("LoggedInUser", loggedInUser);
             return "home";
         }
-        return "redirect:/error_page1";
+        return "redirect:/";
     }
     @RequestMapping(value = "/addWorkout",method = RequestMethod.GET)
     public String addWorkoutForm(Workout workout, HttpSession session){
         if(userService.userLoggedIn(session)) {
             return "addWorkout";
         }
-        return "redirect:/error_page1";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/addWorkout",method = RequestMethod.POST)
@@ -74,7 +74,7 @@ public class WorkoutController {
             workoutService.save(workout);
             return "redirect:/workouts";
         }
-        return "redirect:/error_page1";
+        return "redirect:/";
     }
     @RequestMapping(value="/delete/{id}",method = RequestMethod.GET)
     public String deleteWorkout(@PathVariable("id") long id,  Model model, HttpSession session){
@@ -83,7 +83,7 @@ public class WorkoutController {
             workoutService.delete(workoutToDelete);
             return "redirect:/workouts";
         }
-        return "redirect:/error_page1";
+        return "redirect:/";
     }
     @RequestMapping(value = "/workout/{id}",method = RequestMethod.GET)
     public String openWorkoutForm(@PathVariable("id") long id,Model model, HttpSession session){
@@ -96,7 +96,7 @@ public class WorkoutController {
 
             return "workout";
         }
-        return "redirect:/error_page1";
+        return "redirect:/";
     }
     @RequestMapping(value="/deleteMyWorkout/{id}",method = RequestMethod.GET)
     public String deleteMyWorkout(@PathVariable("id") long id,  Model model, HttpSession session){
@@ -115,13 +115,12 @@ public class WorkoutController {
             workoutToDeleteFromUser.getUser().remove(0);
             workoutToDeleteFromUser.setUser(workoutToDeleteFromUser.getUser());
 
-
             workoutService.save(workoutToDeleteFromUser);
             userService.save(userToDeleteFromWorkout);
 
             return "redirect:/myWorkouts";
         }
-        return "redirect:/error_page1";
+        return "redirect:/";
     }
 
 
@@ -141,7 +140,7 @@ public class WorkoutController {
             //model.addAttribute("keyword", keyword);
             return "myWorkouts";
         }
-        return "redirect:/error_page1";
+        return "redirect:/";
     }
 
     @RequestMapping(value="/addToMyWorkouts/{id}", method = RequestMethod.GET)
@@ -161,9 +160,9 @@ public class WorkoutController {
                 workoutService.save(workoutToAddUserTo);
                 userService.save(userToAddWorkoutTo);
                 return "redirect:/workouts";
-            }else return "redirect:/error_page1";
+            }else return "redirect:/";
         }
-        return "redirect:/error_page1";
+        return "redirect:/";
     }
     //workoutService.addUserToWorkout(userToAddWorkoutTo, workoutToAddUserTo);
     //userServiceImplementation.addWorkoutToUser(workoutToAddUserTo,userToAddWorkoutTo);

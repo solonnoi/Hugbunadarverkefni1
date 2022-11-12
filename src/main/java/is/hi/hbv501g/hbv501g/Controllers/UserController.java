@@ -49,13 +49,15 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String signupPOST(User user, BindingResult result, Model model){
+    public String signupPOST(User user, BindingResult result, Model model, HttpSession session){
         if(result.hasErrors()) {
             return "redirect:/signup_page";
         }
         User exists = userService.findByUsername(user.getUsername());
         if(exists == null){
             userService.save(user);
+            session.setAttribute("LoggedInUser", user);
+            model.addAttribute("LoggedInUser",user);
         }
         return "redirect:/workouts";
     }
@@ -113,4 +115,13 @@ public class UserController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/settings",method = RequestMethod.POST)
+    public String userSettings(HttpSession session,Model model) {
+        User sessionUser = (User) session.getAttribute("LoggedInUser");
+        if (sessionUser != null) {
+            model.addAttribute("LoggedInUser", sessionUser);
+            return "settings";
+        }
+        return "redirect:/";
+    }
 }

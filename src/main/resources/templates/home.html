@@ -35,7 +35,6 @@ Welcome,
                 <th>Duration</th>
                 <th>Description</th>
                 <th>Open Workout</th>
-                <th>Delete</th>
                 <th>Add to MyWorkouts</th>
             </tr>
             </thead>
@@ -45,7 +44,6 @@ Welcome,
                 <td th:text="${workout.duration}"></td>
                 <td th:text="${workout.description}"></td>
                 <td><a th:href="@{/workout/{id}(id=${workout.ID})}">Open Workout</a></td>
-                <td><a th:href="@{/delete/{id}(id=${workout.ID})}">Delete</a></td>
                 <td><a th:href="@{/addToMyWorkouts/{id}(id=${workout.ID})}">Add to MyWorkouts</a></td>
             </tr>
             </tbody>
@@ -53,13 +51,12 @@ Welcome,
     </div>
     <p><a href="/addWorkout">Add a new workout</a></p>
 
-
     <form th:action="@{/myWorkouts}" method="post">
         <input type="submit" value="My Workouts" />
     </form>
 
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout" />
+    <form th:action="@{/settings}" method="post">
+        <input type="submit" value="Settings" />
     </form>
 </div>
 
